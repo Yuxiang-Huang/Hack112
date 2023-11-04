@@ -1,13 +1,14 @@
 from cmu_graphics import *
 from playerLogic import *
 from ui import *
+from gameManager import *
 
 
 def onAppStart(app):
     setDimensions(app)
 
-    app.p1 = Player(["w", "a", "s", "d"], "blue")
-    app.p2 = Player(["up", "left", "down", "right"], "red")
+    app.p1 = Player(["w", "a", "s", "d"], "blue", (100, 400))
+    app.p2 = Player(["up", "left", "down", "right"], "red", (500, 400))
     app.paused = False
 
 
@@ -35,6 +36,7 @@ def onStep(app):
 def takeStep(app):
     app.p1.update()
     app.p2.update()
+    checkPlayerCollision(app)
 
 
 def main():
