@@ -1,64 +1,26 @@
 from cmu_graphics import *
-
-from test import *
-
-
-class Player:
-    def __init__(self):
-        self.pos = [400, 400]
-        self.size = 100
-        self.speed = 10
-        self.movementDirections = [False] * 4
-
-    def update(self):
-        # up
-        if self.movementDirections[0]:
-            self.pos[1] -= self.speed
-        # left
-        if self.movementDirections[1]:
-            self.pos[0] -= self.speed
-        # down
-        if self.movementDirections[2]:
-            self.pos[1] += self.speed
-        # right
-        if self.movementDirections[3]:
-            self.pos[0] += self.speed
+from playerLogic import *
 
 
 def onAppStart(app):
-    app.p1 = Player()
-    app.p2 = Player()
+    app.p1 = Player(["w", "a", "s", "d"])
+    app.p2 = Player(["up", "left", "down", "right"])
     app.paused = False
 
 
 def redrawAll(app):
-    drawCharacter(app.p1)
+    app.p1.drawCharacter()
+    app.p2.drawCharacter()
 
 
-def drawCharacter(player):
-    drawRect(player.pos[0], player.pos[1], player.size, player.size)
-
-
-def onKeyPress(app, key):
-    if "w" in key:
-        app.p1.movementDirections[0] = True
-    if "a" in key:
-        app.p1.movementDirections[1] = True
-    if "s" in key:
-        app.p1.movementDirections[2] = True
-    if "d" in key:
-        app.p1.movementDirections[3] = True
+def onKeyHold(app, key):
+    app.p1.updateDirection(key, True)
+    app.p2.updateDirection(key, True)
 
 
 def onKeyRelease(app, key):
-    if "w" in key:
-        app.p1.movementDirections[0] = False
-    if "a" in key:
-        app.p1.movementDirections[1] = False
-    if "s" in key:
-        app.p1.movementDirections[2] = False
-    if "d" in key:
-        app.p1.movementDirections[3] = False
+    app.p1.updateDirection(key, False)
+    app.p2.updateDirection(key, False)
 
 
 def onStep(app):
@@ -68,6 +30,7 @@ def onStep(app):
 
 def takeStep(app):
     app.p1.update()
+    app.p2.update()
 
 
 def main():
