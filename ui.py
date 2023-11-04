@@ -1,4 +1,5 @@
 from cmu_graphics import *
+import cv2
 
 # imageWidth, imageHeight = getImageSize(app.url)
 
@@ -9,6 +10,9 @@ from cmu_graphics import *
 def setDimensions(app):
     app.cameraBoxWidth = 400
     app.cameraBoxHeight = 200
+    # app.flagImg = readImage('img/flagImg.png')
+    
+    
     app.fieldDimensions = [
         0,
         app.cameraBoxHeight,
@@ -19,8 +23,13 @@ def setDimensions(app):
     app.flagHeight = 200
     app.flagWidth = 100
 
-    app.url = "https://academy.cs.cmu.edu/static/media/project_10.472f439f.jpg"
+# app.url = "https://academy.cs.cmu.edu/static/media/project_10.472f439f.jpg"
 
+
+def readImage(filename):
+    with open(filename, encoding='utf-8') as f:
+        fileString = f.read()
+    return fileString
 
 def drawScreen(app):
     # camera boxes
@@ -48,8 +57,11 @@ def drawScreen(app):
 
 
 def drawFlags(app):
-    topFlagY = app.cameraBoxHeight + ((app.fieldDimensions[3] - 200) // 2)
+    leftFlagY = app.cameraBoxHeight + ((app.fieldDimensions[3] - 200) // 2)
     rightFlagX = app.width - app.flagWidth
+
+    # # drawImage(app.flagImg, 0, leftFlagY, align='center',
+    #           width=app.flagWidth, height=app.flagHeight)
 
     drawRect(0, topFlagY, app.flagWidth, app.flagHeight, fill="red")
     drawRect(rightFlagX, topFlagY, app.flagWidth, app.flagHeight, fill="red")
