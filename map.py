@@ -19,21 +19,19 @@ class Flag:
         )
 
 
-# class Seaweed:
-#     def __init__(self, pos, width, height):
-#         self.pos = pos
-#         self.width = width
-#         self.height = height
+class Seaweed:
+    def __init__(self, pos):
+        self.pos = pos
+        self.width = 30
+        self.height = 60
 
-#     def checkCollision(self, player):
-#         # if collide horizontally
-#         if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
-#             # if collide vertically
-#             if abs(self.pos[1] - player.pos[1]) < self.height / 2 + player.size / 2:
-#                 return True
+    def checkCollision(self, player):
+        if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
+            if abs(self.pos[1] - player.pos[1]) < self.height / 2 + player.size / 2:
+                return True
 
-#     def display(self):
-#         drawRect(self.pos[0], self.pos[1], self.width, self.height, align="center")
+    def display(self):
+        drawRect(self.pos[0], self.pos[1], self.width, self.height, align="center")
 
 
 class Rock:
@@ -41,31 +39,37 @@ class Rock:
         self.pos = pos
         self.radius = radius
 
-    def checkCollision(self, player):
-        # collision between player and rock
-        if (
+    def checkCollision(self, otherPos, otherR):
+        return (
+            (self.pos[0] - otherPos[0]) ** 2 + (self.pos[1] - otherPos[1]) ** 2
+        ) ** 0.5 < self.radius + otherR
+
+    def pushPlayerOut(self, player):
+        # find normalized vector
+        nVector = [player.pos[0] - self.pos[0], player.pos[1] - self.pos[1]]
+        mag = (
             (self.pos[0] - player.pos[0]) ** 2 + (self.pos[1] - player.pos[1]) ** 2
-        ) ** 0.5 < self.radius + player.size / 2:
-            # find normalized vector
-            nVector = [player.pos[0] - self.pos[0], player.pos[1] - self.pos[1]]
-            mag = (
-                (self.pos[0] - player.pos[0]) ** 2 + (self.pos[1] - player.pos[1]) ** 2
-            ) ** 0.5
-            nVector = [nVector[0] / mag, nVector[1] / mag]
-            # change player position to be just outside the rock
-            player.pos = [
-                self.pos[0] + (self.radius + player.size / 2) * nVector[0],
-                self.pos[1] + (self.radius + player.size / 2) * nVector[1],
-            ]
+        ) ** 0.5
+        nVector = [nVector[0] / mag, nVector[1] / mag]
+        # change player position to be just outside the rock
+        player.pos = [
+            self.pos[0] + (self.radius + player.size / 2) * nVector[0],
+            self.pos[1] + (self.radius + player.size / 2) * nVector[1],
+        ]
 
     def display(self):
         drawCircle(self.pos[0], self.pos[1], self.radius)
 
 
+def createObstacles(app):
+    createRocks(app)
+    createSeaweed(app)
+
+
 def createRocks(app):
     app.rocks = []
-    for i in range(random.randrange(5) + 5):
-        xVal = random.randrange(app.width - app.margin * 4) + app.margin * 2
+    for _ in range(random.randrange(5) + 5):
+        xVal = random.randrange(app.width - app.margin * 8) + app.margin * 4
         yVal = (
             random.randrange(app.fieldCanvas["height"] - app.margin * 2)
             + app.fieldCanvas["topLeftY"]
@@ -73,3 +77,15 @@ def createRocks(app):
         )
         radius = random.randrange(50) + 25
         app.rocks.append(Rock((xVal, yVal), radius))
+
+
+def createSeaweed(app):
+    app.seaweeds = []
+    for _ in range(random.randrange(5) + 5):
+        xVal = random.randrange(app.width - app.margin * 8) + app.margin * 4
+        yVal = (
+            random.randrange(app.fieldCanvas["height"] - app.margin * 2)
+            + app.fieldCanvas["topLeftY"]
+            + app.margin
+        )
+        app.seaweeds.append(Seaweed((xVal, yVal)))

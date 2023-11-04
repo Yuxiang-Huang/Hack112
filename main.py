@@ -7,7 +7,7 @@ from map import *
 
 def onAppStart(app):
     setDimensions(app)
-    createRocks(app)
+    createObstacles(app)
 
     # create player and flag objects
     middleYVal = app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] / 2
@@ -31,6 +31,8 @@ def redrawAll(app):
     app.p2.display()
     for rock in app.rocks:
         rock.display()
+    for seaweed in app.seaweeds:
+        seaweed.display()
 
 
 def onKeyHold(app, key):

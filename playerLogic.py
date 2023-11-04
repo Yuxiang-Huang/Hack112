@@ -49,7 +49,8 @@ class Player:
 
         # obstacle check
         for rock in app.rocks:
-            rock.checkCollision(self)
+            if rock.checkCollision(self.pos, self.size / 2):
+                rock.pushPlayerOut(self)
 
     # def boundaryCheck(self, app):
     #     if self.pos[0] < +self.size / 2:
