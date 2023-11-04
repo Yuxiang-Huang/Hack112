@@ -21,7 +21,7 @@ class Player:
             align="center",
         )
 
-    def update(self):
+    def update(self, app):
         # up
         if self.moveDirections[0]:
             self.pos[1] -= self.speed
@@ -34,6 +34,17 @@ class Player:
         # right
         if self.moveDirections[3]:
             self.pos[0] += self.speed
+
+        # boundary check
+        self.pos[0] = max(app.fieldDimensions[0] + self.size / 2, self.pos[0])
+        self.pos[0] = min(
+            app.fieldDimensions[0] + app.fieldDimensions[2] - self.size / 2, self.pos[0]
+        )
+        self.pos[1] = max(app.fieldDimensions[1] + self.size / 2, self.pos[1])
+        self.pos[1] = min(
+            app.fieldDimensions[1] + app.fieldDimensions[3] - self.size / 2,
+            self.pos[1],
+        )
 
     def updateDirection(self, key, boolean):
         if self.moveKeys[0] in key:

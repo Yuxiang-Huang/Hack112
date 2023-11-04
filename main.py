@@ -34,8 +34,8 @@ def onStep(app):
 
 
 def takeStep(app):
-    app.p1.update()
-    app.p2.update()
+    app.p1.update(app)
+    app.p2.update(app)
     checkPlayerCollision(app)
 
 
