@@ -35,8 +35,12 @@ class Obstacle:
 def createObstacles(app):
     app.obstacles = []
     for i in range(random.randrange(5) + 5):
-        xVal = random.randrange(100) + app.width
-        yVal = random.randrange(200) + 100
-        width = random.randrange(30) + 10
-        height = random.randrange(30) + 10
+        xVal = random.randrange(app.width - app.margin * 4) + app.margin * 2
+        yVal = (
+            random.randrange(app.fieldCanvas["height"] - app.margin * 2)
+            + app.fieldCanvas["topLeftY"]
+            + app.margin
+        )
+        width = random.randrange(50) + 25
+        height = random.randrange(50) + 25
         app.obstacles.append(Obstacle((xVal, yVal), width, height))

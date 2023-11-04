@@ -8,9 +8,7 @@ def setDimensions(app):
     app.cameraBoxHeight = 200
 
     app.fieldCanvas = {
-        "topLeftX": 0,
         "topLeftY": app.cameraBoxHeight,
-        "width": app.width,
         "height": app.height - app.cameraBoxHeight,
     }
 
@@ -29,9 +27,9 @@ def drawScreen(app):
 
     # field
     drawRect(
-        app.fieldCanvas["topLeftX"],
+        0,
         app.fieldCanvas["topLeftY"],
-        app.fieldCanvas["width"],
+        app.width,
         app.fieldCanvas["height"],
         fill="lightGreen",
     )

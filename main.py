@@ -9,6 +9,7 @@ def onAppStart(app):
     setDimensions(app)
     createObstacles(app)
 
+    # create player and flag objects
     middleYVal = app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] / 2
     app.p1 = Player(["w", "a", "s", "d"], "blue", (app.margin * 2 / 3, middleYVal))
     app.p2 = Player(
@@ -18,6 +19,7 @@ def onAppStart(app):
     )
     app.flag1 = Flag(app, (app.margin * 2, middleYVal))
     app.flag2 = Flag(app, (app.width - app.margin * 2, middleYVal))
+
     app.paused = False
 
 
