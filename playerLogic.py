@@ -47,6 +47,23 @@ class Player:
             self.pos[1],
         )
 
+        # obstacle check
+        for rock in app.rocks:
+            rock.checkCollision(self)
+
+    # def boundaryCheck(self, app):
+    #     if self.pos[0] < +self.size / 2:
+    #         return False
+    #     if self.pos[0] > app.width - self.size / 2:
+    #         return False
+    #     if self.pos[1] < app.fieldCanvas["topLeftY"] + self.size / 2:
+    #         return False
+    #     if (
+    #         self.pos[1]
+    #         > app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] - self.size / 2
+    #     ):
+    #         return False
+
     def updateDirection(self, key, boolean):
         if self.moveKeys[0] in key:
             self.moveDirections[0] = boolean
