@@ -1,5 +1,5 @@
 from cmu_graphics import *
-import cv2
+# import cv2
 
 # imageWidth, imageHeight = getImageSize(app.url)
 
@@ -63,5 +63,5 @@ def drawFlags(app):
     # # drawImage(app.flagImg, 0, leftFlagY, align='center',
     #           width=app.flagWidth, height=app.flagHeight)
 
-    drawRect(0, topFlagY, app.flagWidth, app.flagHeight, fill="red")
-    drawRect(rightFlagX, topFlagY, app.flagWidth, app.flagHeight, fill="red")
+    drawRect(0, leftFlagY, app.flagWidth, app.flagHeight, fill="red")
+    drawRect(rightFlagX, leftFlagY, app.flagWidth, app.flagHeight, fill="red")
