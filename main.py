@@ -1,14 +1,18 @@
 from cmu_graphics import *
 from playerLogic import *
+from ui import *
 
 
 def onAppStart(app):
-    app.p1 = Player(["w", "a", "s", "d"])
-    app.p2 = Player(["up", "left", "down", "right"])
+    setDimensions(app)
+
+    app.p1 = Player(["w", "a", "s", "d"], "blue")
+    app.p2 = Player(["up", "left", "down", "right"], "red")
     app.paused = False
 
 
 def redrawAll(app):
+    drawScreen(app)
     app.p1.drawCharacter()
     app.p2.drawCharacter()
 

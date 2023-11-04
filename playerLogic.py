@@ -2,15 +2,16 @@ from cmu_graphics import *
 
 
 class Player:
-    def __init__(self, moveKeys):
+    def __init__(self, moveKeys, color):
         self.pos = [400, 400]
+        self.color = color
         self.size = 100
         self.speed = 10
         self.moveKeys = moveKeys
         self.moveDirections = [False, False, False, False]
 
     def drawCharacter(self):
-        drawRect(self.pos[0], self.pos[1], self.size, self.size)
+        drawRect(self.pos[0], self.pos[1], self.size, self.size, fill=self.color)
 
     def update(self):
         # up
