@@ -8,12 +8,12 @@ def setDimensions(app):
     app.cameraBoxHeight = 200
     app.flagImg = readImage("img/flagImg.png")
 
-    app.fieldDimensions = [
-        0,
-        app.cameraBoxHeight,
-        app.width,
-        app.height - app.cameraBoxHeight,
-    ]  # topLeftX, topLeftY, width, height
+    app.fieldCanvas = {
+        "topLeftX": 0,
+        "topLeftY": app.cameraBoxHeight,
+        "width": app.width,
+        "height": app.height - app.cameraBoxHeight,
+    }
 
     app.flagHeight = 100
     app.flagWidth = 50
@@ -44,10 +44,10 @@ def drawScreen(app):
 
     # field
     drawRect(
-        app.fieldDimensions[0],
-        app.fieldDimensions[1],
-        app.fieldDimensions[2],
-        app.fieldDimensions[3],
+        app.fieldCanvas["topLeftX"],
+        app.fieldCanvas["topLeftY"],
+        app.fieldCanvas["width"],
+        app.fieldCanvas["height"],
         fill="lightGreen",
     )
 
@@ -59,7 +59,7 @@ def drawScreen(app):
 
 
 def drawFlags(app):
-    leftFlagY = app.cameraBoxHeight + ((app.fieldDimensions[3] - 100) // 2)
+    leftFlagY = app.cameraBoxHeight + ((app.fieldCanvas["width"] - 100) // 2)
     rightFlagX = app.width - app.flagWidth
 
     # drawImage(app.flagImg, 0, leftFlagY, align='center',

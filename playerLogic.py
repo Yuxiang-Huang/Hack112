@@ -36,13 +36,14 @@ class Player:
             self.pos[0] += self.speed
 
         # boundary check
-        self.pos[0] = max(app.fieldDimensions[0] + self.size / 2, self.pos[0])
+        self.pos[0] = max(app.fieldCanvas["topLeftX"] + self.size / 2, self.pos[0])
         self.pos[0] = min(
-            app.fieldDimensions[0] + app.fieldDimensions[2] - self.size / 2, self.pos[0]
+            app.fieldCanvas["topLeftX"] + app.fieldCanvas["width"] - self.size / 2,
+            self.pos[0],
         )
-        self.pos[1] = max(app.fieldDimensions[1] + self.size / 2, self.pos[1])
+        self.pos[1] = max(app.fieldCanvas["topLeftY"] + self.size / 2, self.pos[1])
         self.pos[1] = min(
-            app.fieldDimensions[1] + app.fieldDimensions[3] - self.size / 2,
+            app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] - self.size / 2,
             self.pos[1],
         )
 

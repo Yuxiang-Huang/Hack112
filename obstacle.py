@@ -18,7 +18,7 @@ class Obstacle:
 def createObstacles(app):
     app.obstacles = []
     for i in range(random.randrange(5) + 5):
-        xVal = random.randrange(app.fieldDimensions[0]) + app.width
+        xVal = random.randrange(100) + app.width
         yVal = random.randrange(200) + 100
         width = random.randrange(30) + 10
         height = random.randrange(30) + 10
