@@ -2,10 +2,12 @@ from cmu_graphics import *
 from playerLogic import *
 from ui import *
 from gameManager import *
+from obstacle import *
 
 
 def onAppStart(app):
     setDimensions(app)
+    createObstacles(app)
 
     app.p1 = Player(["w", "a", "s", "d"], "blue", (100, 400))
     app.p2 = Player(["up", "left", "down", "right"], "red", (500, 400))
@@ -16,6 +18,8 @@ def redrawAll(app):
     drawScreen(app)
     app.p1.drawCharacter()
     app.p2.drawCharacter()
+    for obstacle in app.obstacles:
+        obstacle.display()
 
 
 def onKeyHold(app, key):
