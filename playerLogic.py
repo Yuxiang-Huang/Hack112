@@ -6,7 +6,7 @@ class Player:
         self.pos = [spawnPosition[0], spawnPosition[1]]
         self.color = color
         self.spawnPosition = spawnPosition
-        self.size = 100
+        self.size = 50
         self.speed = 10
         self.moveKeys = moveKeys
         self.moveDirections = [False, False, False, False]
