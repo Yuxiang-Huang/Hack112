@@ -2,22 +2,31 @@ from cmu_graphics import *
 from playerLogic import *
 from ui import *
 from gameManager import *
-from obstacle import *
+from map import *
 
 
 def onAppStart(app):
     setDimensions(app)
     createObstacles(app)
 
-    app.p1 = Player(["w", "a", "s", "d"], "blue", (100, 400))
-    app.p2 = Player(["up", "left", "down", "right"], "red", (500, 400))
+    middleYVal = app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] / 2
+    app.p1 = Player(["w", "a", "s", "d"], "blue", (app.margin * 2 / 3, middleYVal))
+    app.p2 = Player(
+        ["up", "left", "down", "right"],
+        "red",
+        (app.width - app.margin * 2 / 3, middleYVal),
+    )
+    app.flag1 = Flag(app, (app.margin * 2, middleYVal))
+    app.flag2 = Flag(app, (app.width - app.margin * 2, middleYVal))
     app.paused = False
 
 
 def redrawAll(app):
     drawScreen(app)
-    app.p1.drawCharacter()
-    app.p2.drawCharacter()
+    app.flag1.display()
+    app.flag2.display()
+    app.p1.display()
+    app.p2.display()
     for obstacle in app.obstacles:
         obstacle.display()
 

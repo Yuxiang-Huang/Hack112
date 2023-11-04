@@ -11,7 +11,7 @@ class Player:
         self.moveKeys = moveKeys
         self.moveDirections = [False, False, False, False]
 
-    def drawCharacter(self):
+    def display(self):
         drawRect(
             self.pos[0],
             self.pos[1],
