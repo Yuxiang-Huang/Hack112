@@ -19,7 +19,12 @@ def loadImages(app):
         "redFish": "img/redGoldFishGoingLeft.png",
         "clock": "img/clock.png",
         "frozenRedFish": "img/frozenRedFish.png",
-        "frozenBlueFish": "img/frozenBlueFish.png"
+        "frozenBlueFish": "img/frozenBlueFish.png",
+        "redFishPearl": "img/redFishWithPearl.png",
+        "blueFishPearl": "img/blueFishWithPearl.png",
+        "redFishWind": "img/redFishWithWind.png",
+        "blueFishWind": "img/blueFishWithWind.png",
+        "bootWithWings": "img/bootWithWings.png"
     }
 
     for imgName in app.imageDict:
