@@ -4,6 +4,7 @@ from gameManager import *
 from map import *
 from imageManager import *
 from powerUpManager import *
+from startScreen import *
 
 from cmu_graphics import *
 

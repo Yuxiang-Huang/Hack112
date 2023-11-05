@@ -21,18 +21,18 @@ def spawnPowerUp(app):
         )
         randomPos = (app.width / 2, randomY)
 
-    choice = random.randint(0, 6)
-    if choice >= 0:
+    choice = random.randint(0, 5)
+    if choice == 0:
         app.powerUps.append(Mine(randomPos))
-    elif choice >= 0:
+    elif choice == 1:
         app.powerUps.append(Time(randomPos))
-    elif choice >= 0:
+    elif choice == 2:
         app.powerUps.append(Teleport(randomPos))
-    elif choice >= 0:
+    elif choice == 3:
         app.powerUps.append(Speed(randomPos))
-    elif choice >= 0:
+    elif choice == 4:
         app.powerUps.append(PushAway(randomPos))
-    elif choice >= 0:
+    elif choice == 5:
         app.powerUps.append(Freeze(randomPos))
 
 
