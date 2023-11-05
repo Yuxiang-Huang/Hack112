@@ -22,8 +22,8 @@ def onAppStart(app):
     app.flag1 = Flag(app, (app.margin * 2, middleYVal))
     app.flag2 = Flag(app, (app.width - app.margin * 2, middleYVal))
 
-    app.p1Score = 0
-    app.p2Score = 0
+    app.p1score = 0
+    app.p2score = 0
 
     app.paused = False
 
