@@ -62,7 +62,7 @@ def onStep(app):
     # most of the weird stuff here is normal opencv jargon.. etc
     ret, frame = app.cap.read()
 
-    # fliping image
+    # fliping images
     frame = cv2.flip(frame, 1)
 
     # # change dimension

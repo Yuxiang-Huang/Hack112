@@ -3,7 +3,7 @@ from map import *
 import cv2
 import mediapipe as mp
 
-# from playsound import playsound
+from playsound import playsound
 
 
 def startGame(app, ARMode):
@@ -63,13 +63,13 @@ def checkPlayerWin(app):
     if app.p1.hasFlag and app.p1.pos[0] < app.p1.size:
         app.p1.score += 1
         app.p1.hasFlag = False
-        # playsound("img/winningSound.wav")
+        playsound("img/winningSound.wav")
         app.p1.resetPowerUp()
         app.flag2.captured = False
 
     if app.p2.hasFlag and app.p2.pos[0] > app.width - app.p2.size:
         app.p2.score += 1
         app.p2.resetPowerUp()
-        # playsound("img/winningSound.wav")
+        playsound("img/winningSound.wav")
         app.p2.hasFlag = False
         app.flag1.captured = False
