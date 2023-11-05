@@ -40,8 +40,8 @@ def redrawAll(app):
     drawScreen(app)
     app.flag1.display()
     app.flag2.display()
-    app.p1.display()
-    app.p2.display()
+    app.p1.display(app)
+    app.p2.display(app)
     for rock in app.rocks:
         rock.display()
     for seaweed in app.seaweeds:

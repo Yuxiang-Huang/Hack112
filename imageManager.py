@@ -16,7 +16,11 @@ def loadImages(app):
         "seaweed": "img/seaweed.png",
         "oyster-pearl": "img/oysterWithPearl.png",
         "oyster": "img/closedOyster.png",
-        "oceanBackground": "img/oceanBackground.png"
+        "oceanBackground": "img/oceanBackground.png",
+        "goldFish": "img/goldFishGoingLeft.png",
+        "blueFish": "img/blueGoldFishGoingRight.png",
+        "redFish": "img/redGoldFishGoingLeft.png",
+        "clock": "img/clock.png",
     }
 
     for imgName in app.imageDict:
