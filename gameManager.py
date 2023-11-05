@@ -2,6 +2,10 @@ from playerLogic import *
 from map import *
 import cv2
 import mediapipe as mp
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34906c03a40ecf1d9c4bfdf94d0ddb2c3c0651e2
 from playsound import playsound
 
 
