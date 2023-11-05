@@ -4,19 +4,36 @@ import random
 
 class Flag:
     def __init__(self, app, pos):
-        self.flagHeight = 100
-        self.flagWidth = 50
+        self.height = 100
+        self.width = 50
         self.pos = pos
+        self.captured = False
+
+    def checkCollision(self, player):
+        if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
+            if abs(self.pos[1] - player.pos[1]) < self.height / 2 + player.size / 2:
+                return True
+        return False
 
     def display(self):
-        drawRect(
-            self.pos[0],
-            self.pos[1],
-            self.flagWidth,
-            self.flagHeight,
-            fill="red",
-            align="center",
-        )
+        if self.captured:
+            drawRect(
+                self.pos[0],
+                self.pos[1],
+                self.width,
+                self.height,
+                fill="purple",
+                align="center",
+            )
+        else:
+            drawRect(
+                self.pos[0],
+                self.pos[1],
+                self.width,
+                self.height,
+                fill="red",
+                align="center",
+            )
 
 
 class Seaweed:

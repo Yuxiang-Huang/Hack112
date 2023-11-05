@@ -5,6 +5,7 @@ class Player:
     def __init__(self, moveKeys, color, spawnPosition):
         self.pos = [spawnPosition[0], spawnPosition[1]]
         self.color = color
+        self.hasFlag = False
         self.spawnPosition = spawnPosition
         self.size = 50
         self.speed = 10
@@ -12,14 +13,24 @@ class Player:
         self.moveDirections = [False, False, False, False]
 
     def display(self):
-        drawRect(
-            self.pos[0],
-            self.pos[1],
-            self.size,
-            self.size,
-            fill=self.color,
-            align="center",
-        )
+        if self.hasFlag:
+            drawRect(
+                self.pos[0],
+                self.pos[1],
+                self.size,
+                self.size,
+                fill="purple",
+                align="center",
+            )
+        else:
+            drawRect(
+                self.pos[0],
+                self.pos[1],
+                self.size,
+                self.size,
+                fill=self.color,
+                align="center",
+            )
 
     def update(self, app):
         curSpeed = self.speed
@@ -57,19 +68,6 @@ class Player:
             if rock.checkCollision(self.pos, self.size / 2):
                 rock.pushPlayerOut(self)
 
-    # def boundaryCheck(self, app):
-    #     if self.pos[0] < +self.size / 2:
-    #         return False
-    #     if self.pos[0] > app.width - self.size / 2:
-    #         return False
-    #     if self.pos[1] < app.fieldCanvas["topLeftY"] + self.size / 2:
-    #         return False
-    #     if (
-    #         self.pos[1]
-    #         > app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] - self.size / 2
-    #     ):
-    #         return False
-
     def updateDirection(self, key, boolean):
         if self.moveKeys[0] in key:
             self.moveDirections[0] = boolean
@@ -80,5 +78,8 @@ class Player:
         if self.moveKeys[3] in key:
             self.moveDirections[3] = boolean
 
-    def respawn(self):
+    def respawn(self, otherFlag):
         self.pos = [self.spawnPosition[0], self.spawnPosition[1]]
+        if self.hasFlag:
+            self.hasFlag = False
+            otherFlag.captured = False

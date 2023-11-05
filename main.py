@@ -22,6 +22,9 @@ def onAppStart(app):
     app.flag1 = Flag(app, (app.margin * 2, middleYVal))
     app.flag2 = Flag(app, (app.width - app.margin * 2, middleYVal))
 
+    app.p1Score = 0
+    app.p2Score = 0
+
     app.paused = False
 
 
@@ -56,6 +59,8 @@ def takeStep(app):
     app.p1.update(app)
     app.p2.update(app)
     checkPlayerCollision(app)
+    checkPlayerFlagCollision(app)
+    checkPlayerWin(app)
 
 
 def main():
