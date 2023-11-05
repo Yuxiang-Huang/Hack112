@@ -94,7 +94,7 @@ def instructionsScreen1(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
     drawImage(
-        app.imageDict["redFish"],
+        app.imageDict["blueFish"],
         75,
         app.height / 2,
         align="center",
@@ -136,14 +136,33 @@ def instructionsScreen1(app):
 def instructionsScreen2(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
-    drawRect(1100, app.height / 2, 50, 50, fill="purple", align="left")
     drawLabel(
         "Return the flag!!!", app.width / 2, app.height / 4, fill="white", size=50
     )
-    drawLine(100, app.height / 2, 1100, app.height / 2, arrowStart=True, fill="white")
-    drawRect(1105, app.height / 2, 10, 50, fill="grey", align="center")
-    drawRect(1110, app.height / 2 - 25, 40, 20, fill="red", align="bottom-right")
-    drawRect(75, app.height / 2, 50, 50, fill="red", align="center", opacity=50)
+    drawLine(
+        100,
+        app.height / 2,
+        app.width - 100,
+        app.height / 2,
+        arrowStart=True,
+        fill="white",
+    )
+    drawImage(
+        app.imageDict["redFishPearl"],
+        75,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
+    drawImage(
+        app.imageDict["oyster"],
+        app.width - 75,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
     drawRect(
         app.width / 2,
         app.height * 3 / 4,
@@ -159,7 +178,6 @@ def instructionsScreen2(app):
 def instructionsScreen3(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
-    drawRect(1150, app.height / 2, 40, 50, fill="red", align="right", opacity=40)
     drawLabel(
         "Watch out for rocks and seaweed",
         app.width / 2,
@@ -181,12 +199,30 @@ def instructionsScreen3(app):
         fill="white",
         size=40,
     )
-    drawLine(100, app.height / 2, 1100, app.height / 2, arrowEnd=True, fill="white")
-    drawRect(1105, app.height / 2, 10, 50, fill="grey", align="center", opacity=40)
-    drawRect(
-        1110, app.height / 2 - 25, 40, 20, fill="red", align="bottom-right", opacity=40
+    drawLine(
+        100,
+        app.height / 2,
+        app.width - 100,
+        app.height / 2,
+        arrowEnd=True,
+        fill="white",
     )
-    drawRect(75, app.height / 2, 50, 50, fill="red", align="center")
+    drawImage(
+        app.imageDict["blueFish"],
+        75,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
+    drawImage(
+        app.imageDict["oyster-pearl"],
+        app.width - 75,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
     drawRect(
         app.width / 2,
         app.height * 3 / 4,
@@ -197,15 +233,7 @@ def instructionsScreen3(app):
         border="white",
     )
     drawLabel("Next", app.width / 2, app.height * 3 / 4, fill="white", size=70)
-    drawRect(
-        app.width / 2 - 100,
-        app.height / 2,
-        50,
-        50,
-        align="center",
-        fill="red",
-        opacity=75,
-    )
+
     drawImage(
         app.imageDict["seaweed"],
         app.width / 2 - 100,
@@ -213,15 +241,6 @@ def instructionsScreen3(app):
         align="center",
         width=100,
         height=100,
-    )
-    drawRect(
-        app.width / 2 + 100,
-        app.height / 2 - 60,
-        50,
-        50,
-        align="center",
-        fill="red",
-        opacity=50,
     )
     drawImage(
         app.imageDict["rock"],
@@ -239,14 +258,6 @@ def instructionsScreen4(app):
         app.width / 2, app.height / 4 + 80, app.width / 2, app.height, fill="white"
     )
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
-    drawRect(
-        1150,
-        app.height / 2,
-        50,
-        50,
-        fill="blue",
-        align="right",
-    )
     drawLabel(
         "If you touch the enemy while",
         app.width / 2,
@@ -268,6 +279,7 @@ def instructionsScreen4(app):
         fill="white",
         size=40,
     )
+
     drawLine(
         100,
         app.height / 2,
@@ -276,10 +288,34 @@ def instructionsScreen4(app):
         arrowEnd=True,
         fill="white",
     )
-    drawRect(1105, app.height / 2, 10, 50, fill="grey", align="center")
-    drawRect(1110, app.height / 2 - 25, 40, 20, fill="red", align="bottom-right")
-    drawRect(75, app.height / 2, 50, 50, fill="red", align="center")
-    drawRect(75, app.height / 2 - 60, 50, 50, fill="red", align="center", opacity=25)
+    drawImage(
+        app.imageDict["oyster-pearl"],
+        app.width - 100,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
+
+    drawImage(
+        app.imageDict["blueFish"],
+        100,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
+
+    drawImage(
+        app.imageDict["blueFish"],
+        100,
+        app.height / 2 - 60,
+        align="center",
+        width=50,
+        height=50,
+        opacity=25,
+    )
+
     drawRect(
         app.width / 2,
         app.height * 3 / 4,
@@ -290,24 +326,25 @@ def instructionsScreen4(app):
         border="white",
     )
     drawLabel("Next", app.width / 2, app.height * 3 / 4, fill="white", size=70)
-    drawRect(
+
+    drawImage(
+        app.imageDict["blueFish"],
         app.width / 2 + 50,
         app.height / 2 - 60,
-        50,
-        50,
         align="center",
-        fill="red",
-        opacity=50,
+        width=50,
+        height=50,
     )
-    drawRect(
+
+    drawImage(
+        app.imageDict["redFish"],
         app.width / 2 + 100,
         app.height / 2 - 60,
-        50,
-        50,
         align="center",
-        fill="blue",
-        opacity=50,
+        width=50,
+        height=50,
     )
+
     drawLine(
         app.width / 2 + 25,
         app.height / 2 - 60,
