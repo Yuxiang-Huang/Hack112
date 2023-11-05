@@ -1,5 +1,5 @@
-import random
 from cmu_graphics import *
+import random
 
 
 def updateSpawnPowerUp(app):
@@ -28,8 +28,8 @@ def spawnPowerUp(app):
 
 
 def collideWithAnyRock(app, pos):
-    for rock in app.rock():
-        if rock.checkCollision(pos):
+    for rock in app.rocks:
+        if rock.checkCollision(pos, app.powerUpSize):
             return True
     return False
 

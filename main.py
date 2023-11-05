@@ -1,10 +1,11 @@
-from cmu_graphics import *
 from playerLogic import *
 from ui import *
 from gameManager import *
 from map import *
 from imageManager import *
+from powerUpManager import *
 
+from cmu_graphics import *
 import cv2
 import mediapipe as mp
 
@@ -35,6 +36,11 @@ def onAppStart(app):
 
     app.paused = False
 
+    # power ups
+    app.powerUps = []
+    app.timeUntilSpawn = 150
+    app.powerUpSize = 30
+
 
 def redrawAll(app):
     drawScreen(app)
@@ -46,6 +52,8 @@ def redrawAll(app):
         rock.display()
     for seaweed in app.seaweeds:
         seaweed.display()
+    for powerup in app.powerUps:
+        powerup.display(app)
 
 
 def onKeyHold(app, key):
@@ -142,6 +150,7 @@ def onStep(app):
 
 
 def takeStep(app):
+    updateSpawnPowerUp(app)
     app.p1.update(app)
     app.p2.update(app)
     checkPlayerCollision(app)
