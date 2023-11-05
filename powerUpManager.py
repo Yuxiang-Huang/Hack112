@@ -23,9 +23,9 @@ def spawnPowerUp(app):
 
     choice = random.randint(0, 5)
     if choice == 0:
-        app.powerUps.append(Mine(randomPos))
-    elif choice == 1:
         app.powerUps.append(Time(randomPos))
+    elif choice == 1:
+        app.powerUps.append(Mine(randomPos))
     elif choice == 2:
         app.powerUps.append(Teleport(randomPos))
     elif choice == 3:
@@ -93,7 +93,6 @@ class PushAway(PowerUp):
         pushDir = pushOutDir(player.pos, other.pos)
         dist = distance(other.pos[0], other.pos[1], player.pos[0], player.pos[1])
         pushTime = max(min(1.5, self.pushAwayConstant / dist), 0.5) * app.stepsPerSecond
-        print(pushTime)
         other.pushAway(
             pushDir,
             self.pushAwayMaxStrength,

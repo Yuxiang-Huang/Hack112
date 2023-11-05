@@ -154,7 +154,7 @@ class Player:
         if self.count % 15 == 0:
             self.pastPositions.append([self.pos[0], self.pos[1]])
             if len(self.pastPositions) > 10:
-                self.pastPositions.pop(-1)
+                self.pastPositions.pop(0)
 
         # time travelling
         if self.timeTravelling:
