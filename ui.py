@@ -17,14 +17,15 @@ def drawScreen(app):
     drawImage(
         app.imageDict["oceanBackground"],
         0,
-        app.fieldCanvas["topLeftY"],
-        align="center",
-        width=app.width,
+        390, 
+        width=app.width*2,
         height=app.fieldCanvas["height"],
+        align="center"
     )
 
     # score
-    # drawLabel()
+    drawLabel(f'current points: x', 100, app.topBarHeight/2, size=16)
+    drawLabel(f'current points: y', app.width-100, app.topBarHeight/2, size=16)
 
     # vertical center line
     drawLine(app.width / 2, 0, app.width / 2, app.height, fill="black")
