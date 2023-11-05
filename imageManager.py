@@ -6,7 +6,6 @@ def loadImages(app):
     # Load the PIL image
     app.imageDict = {
         "freeze": "img/freeze.png",
-        "bounceObject": "img/bounceObject.png",
         "mine": "img/mine.png",
         "pushAway": "img/pushAway.png",
         "teleport": "img/teleport.png",
