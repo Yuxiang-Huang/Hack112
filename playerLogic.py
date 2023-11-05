@@ -474,7 +474,7 @@ def drawMovementTractingTable(app, startX):
 def drawMovementTractorP1(app, player, startX):
     size = app.topBarHeight * 4 / 5
     if not (player.ARVals[0] == 0 and player.ARVals[1] == 0):
-        xVal = (player.ARVals[0] - 4 / 7) / (3 / 7) * size + startX
+        xVal = player.ARVals[0] / (3 / 7) * size + startX
         yVall = player.ARVals[1] * size + app.topBarHeight / 2 - size / 2
         drawCircle(xVal, yVall, 10, fill=player.color)
 

@@ -157,85 +157,103 @@ def onStep(app):
                     # print("Power-Up-Player2")
                     app.p2.tryUsePowerUpARMode(app)
 
-    # getting Area
+    # getting average
+    totalP1X = 0
+    totalP1Y = 0
+
+    totalP2X = 0
+    totalP2Y = 0
+
+    P1count = 0
+    P2count = 0
+
     if results.multi_hand_landmarks:
         # print(results.multi_hand_landmarks)
         for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
             for landmark in hand_landmarks.landmark:
-                x = landmark.x
-                y = landmark.y
+                if landmark.x <= 3 / 7:
+                    totalP1X += landmark.x
+                    totalP1Y += landmark.y
+                    P1count += 1
+                elif landmark.x >= 4 / 7:
+                    totalP2X += landmark.x
+                    totalP2Y += landmark.y
+                    P2count += 1
 
-                # store value to show on canvas
-                if x <= 3 / 7:
-                    app.p1.ARVals[0] = x
-                    app.p1.ARVals[1] = y
+    if P1count != 0:
+        x = totalP1X / P1count
+        y = totalP1Y / P1count
 
-                if x >= 4 / 7:
-                    app.p2.ARVals[0] = x
-                    app.p2.ARVals[1] = y
+        # store value to show on canvas
+        app.p1.ARVals[0] = x
+        app.p1.ARVals[1] = y
 
-                # player moveDirections = [False, False, False, False] refer to W A S D
-                if 0 <= x <= 1 / 7 and 0 <= y <= 1 / 3:
-                    # print("Up-Left-Player1")
-                    app.p1.moveDirections = [True, True, False, False]
-                elif 1 / 7 <= x <= 2 / 7 and 0 <= y <= 1 / 3:
-                    # print("Up-Player1")
-                    app.p1.moveDirections = [True, False, False, False]
-                elif 2 / 7 <= x <= 3 / 7 and 0 <= y <= 1 / 3:
-                    # print("Up-Right-Player1")
-                    app.p1.moveDirections = [True, False, False, True]
+        # player moveDirections = [False, False, False, False] refer to W A S D
+        if 0 <= x <= 1 / 7 and 0 <= y <= 1 / 3:
+            # print("Up-Left-Player1")
+            app.p1.moveDirections = [True, True, False, False]
+        elif 1 / 7 <= x <= 2 / 7 and 0 <= y <= 1 / 3:
+            # print("Up-Player1")
+            app.p1.moveDirections = [True, False, False, False]
+        elif 2 / 7 <= x <= 3 / 7 and 0 <= y <= 1 / 3:
+            # print("Up-Right-Player1")
+            app.p1.moveDirections = [True, False, False, True]
 
-                elif 0 <= x <= 1 / 7 and 1 / 3 <= y <= 2 / 3:
-                    # print("Left-Player1")
-                    app.p1.moveDirections = [False, True, False, False]
-                elif 1 / 7 <= x <= 2 / 7 and 1 / 3 <= y <= 2 / 3:
-                    # print("Center-Player1")
-                    app.p1.moveDirections = [False, False, False, False]
-                elif 2 / 7 <= x <= 3 / 7 and 1 / 3 <= y <= 2 / 3:
-                    # print("Right-Player1")
-                    app.p1.moveDirections = [False, False, False, True]
+        elif 0 <= x <= 1 / 7 and 1 / 3 <= y <= 2 / 3:
+            # print("Left-Player1")
+            app.p1.moveDirections = [False, True, False, False]
+        elif 1 / 7 <= x <= 2 / 7 and 1 / 3 <= y <= 2 / 3:
+            # print("Center-Player1")
+            app.p1.moveDirections = [False, False, False, False]
+        elif 2 / 7 <= x <= 3 / 7 and 1 / 3 <= y <= 2 / 3:
+            # print("Right-Player1")
+            app.p1.moveDirections = [False, False, False, True]
 
-                elif 0 <= x <= 1 / 7 and 2 / 3 <= y <= 1:
-                    # print("Down-Left-Player1")
-                    app.p1.moveDirections = [False, True, True, False]
-                elif 1 / 7 <= x <= 2 / 7 and 2 / 3 <= y <= 1:
-                    # print("Down-Player1")
-                    app.p1.moveDirections = [False, False, True, False]
-                elif 2 / 7 <= x <= 3 / 7 and 2 / 3 <= y <= 1:
-                    # print("Down-Right-Player1")
-                    app.p1.moveDirections = [False, False, True, True]
+        elif 0 <= x <= 1 / 7 and 2 / 3 <= y <= 1:
+            # print("Down-Left-Player1")
+            app.p1.moveDirections = [False, True, True, False]
+        elif 1 / 7 <= x <= 2 / 7 and 2 / 3 <= y <= 1:
+            # print("Down-Player1")
+            app.p1.moveDirections = [False, False, True, False]
+        elif 2 / 7 <= x <= 3 / 7 and 2 / 3 <= y <= 1:
+            # print("Down-Right-Player1")
+            app.p1.moveDirections = [False, False, True, True]
 
-                elif 4 / 7 <= x <= 5 / 7 and 0 <= y <= 1 / 3:
-                    # print("Up-Left-Player2")
-                    app.p2.moveDirections = [True, True, False, False]
-                elif 5 / 7 <= x <= 6 / 7 and 0 <= y <= 1 / 3:
-                    # print("Up-Player2")
-                    app.p2.moveDirections = [False, True, False, False]
-                elif 6 / 7 <= x <= 1 and 0 <= y <= 1 / 3:
-                    # print("Up-Right-Player2")
-                    app.p2.moveDirections = [False, True, True, False]
+    if P2count != 0:
+        x = totalP2X / P2count
+        y = totalP2Y / P2count
+        app.p2.ARVals[0] = x
+        app.p2.ARVals[1] = y
 
-                elif 4 / 7 <= x <= 5 / 7 and 1 / 3 <= y <= 2 / 3:
-                    # print("Left-Player2")
-                    app.p2.moveDirections = [False, True, False, False]
-                elif 5 / 7 <= x <= 6 / 7 and 1 / 3 <= y <= 2 / 3:
-                    # print("Center-Player2")
-                    app.p2.moveDirections = [False, False, False, False]
-                elif 6 / 7 <= x <= 1 and 1 / 3 <= y <= 2 / 3:
-                    # print("Right-Player2")
-                    app.p2.moveDirections = [False, False, False, True]
+        if 4 / 7 <= x <= 5 / 7 and 0 <= y <= 1 / 3:
+            # print("Up-Left-Player2")
+            app.p2.moveDirections = [True, True, False, False]
+        elif 5 / 7 <= x <= 6 / 7 and 0 <= y <= 1 / 3:
+            # print("Up-Player2")
+            app.p2.moveDirections = [False, True, False, False]
+        elif 6 / 7 <= x <= 1 and 0 <= y <= 1 / 3:
+            # print("Up-Right-Player2")
+            app.p2.moveDirections = [True, False, False, True]
 
-                elif 4 / 7 <= x <= 5 / 7 and 2 / 3 <= y <= 1:
-                    # print("Down-Left-Player2")
-                    app.p2.moveDirections = [False, True, True, False]
-                elif 5 / 7 <= x <= 6 / 7 and 2 / 3 <= y <= 1:
-                    # print("Down-Player2")
-                    app.p2.moveDirections = [False, False, True, False]
-                elif 6 / 7 <= x <= 1 and 2 / 3 <= y <= 1:
-                    # print("Down-Right-Player2")
-                    app.p2.moveDirections = [False, False, True, True]
+        elif 4 / 7 <= x <= 5 / 7 and 1 / 3 <= y <= 2 / 3:
+            # print("Left-Player2")
+            app.p2.moveDirections = [False, True, False, False]
+        elif 5 / 7 <= x <= 6 / 7 and 1 / 3 <= y <= 2 / 3:
+            # print("Center-Player2")
+            app.p2.moveDirections = [False, False, False, False]
+        elif 6 / 7 <= x <= 1 and 1 / 3 <= y <= 2 / 3:
+            # print("Right-Player2")
+            app.p2.moveDirections = [False, False, False, True]
 
-                break
+        elif 4 / 7 <= x <= 5 / 7 and 2 / 3 <= y <= 1:
+            # print("Down-Left-Player2")
+            app.p2.moveDirections = [False, True, True, False]
+        elif 5 / 7 <= x <= 6 / 7 and 2 / 3 <= y <= 1:
+            # print("Down-Player2")
+            app.p2.moveDirections = [False, False, True, False]
+        elif 6 / 7 <= x <= 1 and 2 / 3 <= y <= 1:
+            # print("Down-Right-Player2")
+            app.p2.moveDirections = [False, False, True, True]
 
     cv2.imshow("Hand Tracking", frame)
 
