@@ -7,12 +7,12 @@ class Player:
         self.color = color
         self.hasFlag = False
         self.spawnPosition = spawnPosition
-        self.size = 50
+        self.size = 100
         self.speed = 10
         self.moveKeys = moveKeys
         self.moveDirections = [False, False, False, False]
 
-    def display(self):
+    def display(self, app):
         if self.hasFlag:
             drawRect(
                 self.pos[0],
@@ -23,14 +23,32 @@ class Player:
                 align="center",
             )
         else:
-            drawRect(
-                self.pos[0],
-                self.pos[1],
-                self.size,
-                self.size,
-                fill=self.color,
-                align="center",
-            )
+            # drawRect(
+            #     self.pos[0],
+            #     self.pos[1],
+            #     self.size,
+            #     self.size,
+            #     fill=self.color,
+            #     align="center",
+            # )
+            if self == app.p1:
+                drawImage(
+                    app.imageDict["blueFish"],
+                    self.pos[0],
+                    self.pos[1],
+                    align="center",
+                    width=self.size,
+                    height=self.size,
+                )
+            else:
+                drawImage(
+                    app.imageDict["redFish"],
+                    self.pos[0],
+                    self.pos[1],
+                    align="center",
+                    width=self.size,
+                    height=self.size,
+                )
 
     def update(self, app):
         curSpeed = self.speed
