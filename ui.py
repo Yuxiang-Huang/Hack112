@@ -3,28 +3,15 @@ from cmu_graphics import *
 
 def setDimensions(app):
     app.margin = 50
-
-    app.cameraBoxWidth = 400
-    app.cameraBoxHeight = 200
+    app.topBarHeight = 75
 
     app.fieldCanvas = {
-        "topLeftY": app.cameraBoxHeight,
-        "height": app.height - app.cameraBoxHeight,
+        "topLeftY": app.topBarHeight,
+        "height": app.height - app.topBarHeight,
     }
 
 
 def drawScreen(app):
-    # camera boxes
-    drawRect(0, 0, app.cameraBoxWidth, app.cameraBoxHeight, border="black", fill=None)
-    drawRect(
-        app.width - app.cameraBoxWidth,
-        0,
-        app.cameraBoxWidth,
-        app.cameraBoxHeight,
-        border="black",
-        fill=None,
-    )
-
     # field
     drawRect(
         0,
@@ -33,13 +20,14 @@ def drawScreen(app):
         app.fieldCanvas["height"],
         fill="lightGreen",
     )
-    
-    #score
+
+    # score
     # drawLabel()
 
     # vertical center line
     drawLine(app.width / 2, 0, app.width / 2, app.height, fill="black")
-    
+
+
 def oceanTheme():
     colorPalette = {"oceanBlue": rgb(95, 123, 165), "rock": rgb(73, 70, 67)}
     procreateBrush = {"rock": "Syrup"}
