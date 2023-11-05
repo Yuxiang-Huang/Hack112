@@ -103,37 +103,40 @@ def drawNextButton(app):
     drawLabel("Next", app.width / 2, app.height * 11 / 12, fill="white", size=50)
 
 
-def instructionsScreen1(app):
-    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
-    drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
+def drawSimpleFishToPearl(app):
     drawImage(
         app.imageDict["blueFish"],
-        75,
+        200,
         app.height / 2,
         align="center",
-        width=50,
-        height=50,
-    )
-
-    drawLabel(
-        "Capture their flag!!!", app.width / 2, app.height / 4, fill="white", size=50
+        width=75,
+        height=75,
     )
     drawLine(
-        100,
+        275,
         app.height / 2,
-        app.width - 100,
+        app.width - 275,
         app.height / 2,
         arrowEnd=True,
         fill="white",
     )
     drawImage(
         app.imageDict["oyster-pearl"],
-        app.width - 75,
+        app.width - 200,
         app.height / 2,
         align="center",
-        width=50,
-        height=50,
+        width=100,
+        height=100,
     )
+
+
+def instructionsScreen1(app):
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
+    drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
+    drawLabel(
+        "Capture their flag!!!", app.width / 2, app.height / 4, fill="white", size=50
+    )
+    drawSimpleFishToPearl(app)
     drawNextButton(app)
 
 
@@ -144,28 +147,28 @@ def instructionsScreen2(app):
         "Return the flag!!!", app.width / 2, app.height / 4, fill="white", size=50
     )
     drawLine(
-        100,
+        275,
         app.height / 2,
-        app.width - 100,
+        app.width - 275,
         app.height / 2,
         arrowStart=True,
         fill="white",
     )
     drawImage(
         app.imageDict["redFishPearl"],
-        75,
+        200,
         app.height / 2,
         align="center",
-        width=50,
-        height=50,
+        width=75,
+        height=75,
     )
     drawImage(
         app.imageDict["oyster"],
-        app.width - 75,
+        app.width - 200,
         app.height / 2,
         align="center",
-        width=50,
-        height=50,
+        width=100,
+        height=100,
     )
     drawNextButton(app)
 
@@ -194,31 +197,7 @@ def instructionsScreen3(app):
         fill="white",
         size=40,
     )
-    drawLine(
-        100,
-        app.height / 2,
-        app.width - 100,
-        app.height / 2,
-        arrowEnd=True,
-        fill="white",
-    )
-    drawImage(
-        app.imageDict["blueFish"],
-        75,
-        app.height / 2,
-        align="center",
-        width=50,
-        height=50,
-    )
-    drawImage(
-        app.imageDict["oyster-pearl"],
-        app.width - 75,
-        app.height / 2,
-        align="center",
-        width=50,
-        height=50,
-    )
-
+    drawSimpleFishToPearl(app)
     drawNextButton(app)
 
     drawImage(
@@ -280,8 +259,8 @@ def instructionsScreen4(app):
         app.width - 100,
         app.height / 2,
         align="center",
-        width=50,
-        height=50,
+        width=100,
+        height=100,
     )
 
     drawImage(
@@ -289,8 +268,8 @@ def instructionsScreen4(app):
         100,
         app.height / 2,
         align="center",
-        width=50,
-        height=50,
+        width=75,
+        height=75,
     )
 
     drawImage(
@@ -298,8 +277,8 @@ def instructionsScreen4(app):
         100,
         app.height / 2 - 60,
         align="center",
-        width=50,
-        height=50,
+        width=75,
+        height=75,
         opacity=25,
     )
 
@@ -310,17 +289,17 @@ def instructionsScreen4(app):
         app.width / 2 + 50,
         app.height / 2 - 60,
         align="center",
-        width=50,
-        height=50,
+        width=75,
+        height=75,
     )
 
     drawImage(
         app.imageDict["redFish"],
-        app.width / 2 + 100,
+        app.width / 2 + 120,
         app.height / 2 - 60,
         align="center",
-        width=50,
-        height=50,
+        width=75,
+        height=75,
     )
 
     drawLine(
