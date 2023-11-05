@@ -63,8 +63,8 @@ def onStep(app):
     # fliping image
     frame = cv2.flip(frame, 1)
 
-    # change dimension
-    frame = cv2.resize(frame, (400, 200))
+    # # change dimension
+    # frame = cv2.resize(frame, (400, 200))
 
     # BGR to RGB since mediapipe only works with rgb
     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -170,15 +170,19 @@ def onStep(app):
     if results.multi_hand_landmarks:
         # print(results.multi_hand_landmarks)
         for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
-            for landmark in hand_landmarks.landmark:
-                if landmark.x <= 3 / 7:
-                    totalP1X += landmark.x
-                    totalP1Y += landmark.y
-                    P1count += 1
-                elif landmark.x >= 4 / 7:
-                    totalP2X += landmark.x
-                    totalP2Y += landmark.y
-                    P2count += 1
+            print(hand_landmarks.landmark)
+            for j in range(len(hand_landmarks.landmark)):
+                # skip skew points
+                if j > 3:
+                    landmark = hand_landmarks.landmark[j]
+                    if landmark.x <= 3 / 7:
+                        totalP1X += landmark.x
+                        totalP1Y += landmark.y
+                        P1count += 1
+                    elif landmark.x >= 4 / 7:
+                        totalP2X += landmark.x
+                        totalP2Y += landmark.y
+                        P2count += 1
 
     if P1count != 0:
         x = totalP1X / P1count
@@ -222,7 +226,7 @@ def onStep(app):
     if P2count != 0:
         x = totalP2X / P2count
         y = totalP2Y / P2count
-        app.p2.ARVals[0] = x
+        app.p2.ARVals[0] = x - 4 / 7
         app.p2.ARVals[1] = y
 
         if 4 / 7 <= x <= 5 / 7 and 0 <= y <= 1 / 3:

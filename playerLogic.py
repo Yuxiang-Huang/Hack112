@@ -341,8 +341,7 @@ class Player:
 
 
 def displayTopBarP1(app):
-    drawMovementTractingTable(app, 25)
-    drawMovementTractorP1(app, app.p1, 25)
+    drawMovementTractor(app, app.p1, 25)
     drawLabel("P1 Score: " + str(app.p1.score), 150, app.topBarHeight / 2, size=16)
     drawRect(
         225,
@@ -387,8 +386,7 @@ def displayTopBarP1(app):
 
 
 def displayTopBarP2(app):
-    drawMovementTractingTable(app, app.width - 25 - app.topBarHeight * 4 / 5)
-    drawMovementTractorP2(app, app.p2, app.width - 25 - app.topBarHeight * 4 / 5)
+    drawMovementTractor(app, app.p2, app.width - 25 - app.topBarHeight * 4 / 5)
     drawLabel(
         "P2 Score: " + str(app.p2.score), app.width - 150, app.topBarHeight / 2, size=16
     )
@@ -434,7 +432,7 @@ def displayTopBarP2(app):
             )
 
 
-def drawMovementTractingTable(app, startX):
+def drawMovementTractor(app, player, startX):
     size = app.topBarHeight * 4 / 5
     drawRect(
         startX,
@@ -469,19 +467,29 @@ def drawMovementTractingTable(app, startX):
         startX + size / 3,
         app.topBarHeight / 2 + size / 2,
     )
-
-
-def drawMovementTractorP1(app, player, startX):
-    size = app.topBarHeight * 4 / 5
+    # using ar result
     if not (player.ARVals[0] == 0 and player.ARVals[1] == 0):
         xVal = player.ARVals[0] / (3 / 7) * size + startX
         yVall = player.ARVals[1] * size + app.topBarHeight / 2 - size / 2
         drawCircle(xVal, yVall, 10, fill=player.color)
-
-
-def drawMovementTractorP2(app, player, startX):
-    size = app.topBarHeight * 4 / 5
-    if not (player.ARVals[0] == 0 and player.ARVals[1] == 0):
-        xVal = (player.ARVals[0] - 4 / 7) / (3 / 7) * size + startX
-        yVall = player.ARVals[1] * size + app.topBarHeight / 2 - size / 2
+    # using movement array
+    else:
+        indices = getIndicesFromMoveDirections(player.moveDirections)
+        xVal = indices[0] / 3 * size + startX + size / 6
+        yVall = indices[1] / 3 * size + app.topBarHeight / 2 - size / 2 + size / 6
         drawCircle(xVal, yVall, 10, fill=player.color)
+
+
+def getIndicesFromMoveDirections(movement):
+    ans = [1, 1]
+    if movement[0] and not movement[2]:
+        ans[1] = 0
+    elif movement[2] and not movement[0]:
+        ans[1] = 2
+
+    if movement[1] and not movement[3]:
+        ans[0] = 0
+    elif movement[3] and not movement[1]:
+        ans[0] = 2
+
+    return ans
