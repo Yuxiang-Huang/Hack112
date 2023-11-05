@@ -1,13 +1,12 @@
 from cmu_graphics import *
 from imageManager import *
+from gameManager import *
 
 
 def setIntroScreenVaribles(app):
-    app.mouseX = 0
-    app.mouseY = 0
     app.screenIndex = 0
     app.infoScreen = False
-    app.pressedStart = False
+    app.gameStarted = False
     app.screens = [
         instructionsScreen1,
         instructionsScreen2,
@@ -15,17 +14,18 @@ def setIntroScreenVaribles(app):
         instructionsScreen4,
         instructionsScreen5,
     ]
-    loadImages(app)
 
 
 def onMousePress(app, mouseX, mouseY):
     if (
-        mouseX <= ((app.width / 3) + 150)
+        not app.infoScreen
+        and mouseX <= ((app.width / 3) + 150)
         and mouseX >= ((app.width / 3) - 150)
         and mouseY <= (app.height * 3 / 4) + 50
         and mouseY >= (app.height * 3 / 4) - 50
     ):
-        app.pressedStart = True
+        startGame(app)
+        app.gameStarted = True
     elif (
         not app.infoScreen
         and mouseX <= ((app.width * 2 / 3) + 200)

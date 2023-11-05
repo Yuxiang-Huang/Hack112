@@ -11,6 +11,7 @@ class Player:
         self.spawnPosition = spawnPosition
         self.size = 75
         self.speed = 10
+        self.score = 0
 
         # keys and movement
         self.moveKeys = moveKeys
@@ -332,7 +333,7 @@ class Player:
 
 
 def displayTopBarP1(app):
-    drawLabel("P1 Score: " + str(app.p1Score), 50, app.topBarHeight / 2, size=16)
+    drawLabel("P1 Score: " + str(app.p1.score), 50, app.topBarHeight / 2, size=16)
     drawRect(
         125,
         app.topBarHeight / 2,
@@ -377,7 +378,7 @@ def displayTopBarP1(app):
 
 def displayTopBarP2(app):
     drawLabel(
-        "P2 Score: " + str(app.p2Score), app.width - 50, app.topBarHeight / 2, size=16
+        "P2 Score: " + str(app.p2.score), app.width - 50, app.topBarHeight / 2, size=16
     )
     drawRect(
         app.width - 125,

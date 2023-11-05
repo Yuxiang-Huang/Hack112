@@ -21,45 +21,26 @@ def onAppStart(app):
     loadImages(app)
     setDimensions(app)
     createObstacles(app)
-
-    # create player and flag objects
-    middleYVal = app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] / 2
-    app.p1 = Player(["w", "a", "s", "d"], "e", "blue", (app.margin * 2 / 3, middleYVal))
-    app.p2 = Player(
-        ["up", "left", "down", "right"],
-        "/",
-        "red",
-        (app.width - app.margin * 2 / 3, middleYVal),
-    )
-    app.flag1 = Flag(app, (app.margin * 2, middleYVal))
-    app.flag2 = Flag(app, (app.width - app.margin * 2, middleYVal))
-
-    app.p1Score = 0
-    app.p2Score = 0
-
-    app.paused = False
-
-    # power ups
-    app.powerUps = []
-    app.timeUntilSpawn = 45
-    app.powerUpSize = 45
-    app.powerUpCoolDown = 150
+    setIntroScreenVaribles(app)
 
 
 def redrawAll(app):
-    drawScreen(app)
-    displayTopBarP1(app)
-    displayTopBarP2(app)
-    app.flag1.display()
-    app.flag2.display()
-    app.p1.display(app)
-    app.p2.display(app)
-    for rock in app.rocks:
-        rock.display()
-    for seaweed in app.seaweeds:
-        seaweed.display()
-    for powerup in app.powerUps:
-        powerup.display(app)
+    if not app.gameStarted:
+        drawIntroScreens(app)
+    else:
+        drawScreen(app)
+        displayTopBarP1(app)
+        displayTopBarP2(app)
+        app.flag1.display()
+        app.flag2.display()
+        app.p1.display(app)
+        app.p2.display(app)
+        for rock in app.rocks:
+            rock.display()
+        for seaweed in app.seaweeds:
+            seaweed.display()
+        for powerup in app.powerUps:
+            powerup.display(app)
 
 
 def onKeyHold(app, key):
@@ -75,7 +56,7 @@ def onKeyRelease(app, key):
 
 
 def onStep(app):
-    if not app.paused:
+    if app.gameStarted and not app.paused:
         takeStep(app)
 
     return

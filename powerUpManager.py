@@ -8,7 +8,7 @@ def updateSpawnPowerUp(app):
         app.timeUntilSpawn -= 1
     if app.timeUntilSpawn == 0:
         spawnPowerUp(app)
-        app.timeUntilSpawn = 150
+        app.timeUntilSpawn = app.powerUpSpawnTime
 
 
 def spawnPowerUp(app):
