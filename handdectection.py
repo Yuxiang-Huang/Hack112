@@ -1,5 +1,5 @@
-import mediapipe as mp
 import cv2
+import mediapipe as mp
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -7,37 +7,40 @@ cap = cv2.VideoCapture(0)
 
 with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) as hands:
     while cap.isOpened():
+        #most of the weird stuff here is normal opencv jargon.. etc
         ret, frame = cap.read()
 
-        # Flip on horizontal
+        #fliping image
         frame = cv2.flip(frame, 1)
 
-        # BGR 2 RGB
+        #BGR to RGB since mediapipe only works with rgb
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        # Set flag
+        #set flag
         image.flags.writeable = False
 
-        # Detections
+        #detections
         results = hands.process(image)
         
-        # Set flag to true
+        #setting flag to true
         image.flags.writeable = True
 
-        # RGB 2 BGR
+        #RGB to BGR
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # frame dimensions
+        #frame dimensions
         height, width, _ = frame.shape
 
+        #getting fractions to use for line dimensions
         x_seventh = width // 7
         y_thirds = height // 3
 
-        #vert lines
+        #vertical lines for player 1
         line1 = ((x_seventh, 0), (x_seventh, height))
         line2 = ((x_seventh * 2, 0), (x_seventh * 2, height))
         line3 = ((x_seventh * 3, 0), (x_seventh * 3, height))
 
+        #vertical lines for player 2
         line4 = ((x_seventh * 4, 0), (x_seventh * 4, height))
         line5 = ((x_seventh * 5, 0), (x_seventh * 5, height))
         line6 = ((x_seventh * 6, 0), (x_seventh * 6, height))
@@ -48,7 +51,7 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
         line9 = ((x_seventh * 4, y_thirds), (width, y_thirds))
         line10 = ((x_seventh * 4, y_thirds * 2), (width, y_thirds * 2))
         
-        #vert
+        #vertical lines
         cv2.line(frame, line1[0], line1[1], (0, 255, 0), 2)
         cv2.line(frame, line2[0], line2[1], (0, 255, 0), 2)
         cv2.line(frame, line3[0], line3[1], (0, 255, 0), 2)
@@ -63,32 +66,39 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
         cv2.line(frame, line9[0], line9[1], (0, 255, 0), 2)
         cv2.line(frame, line10[0], line10[1], (0, 255, 0), 2)
 
-        #Overlaying Skeleton
-         # Overlaying Skeleton and check for fingers up
+        #overlaying skeleton and checking for fingers up
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS,
-                                          mp_drawing.DrawingSpec(color=(121, 22, 76), thickness=2, circle_radius=4),
-                                          mp_drawing.DrawingSpec(color=(250, 44, 250), thickness=2, circle_radius=2),
+                                          mp_drawing.DrawingSpec(color=(121, 22, 76), 
+                                                                 thickness=2, circle_radius=4),
+                                          mp_drawing.DrawingSpec(color=(250, 44, 250), 
+                                                                 thickness=2, circle_radius=2),
                                           )
 
-                # Calculate the x-coordinate of the wrist (landmark 0)
+                #calculating write x coordinate(landmark 0)
+                #results.multi_hand_landmarks is a weird non-comma separated list
+                #that i spent a while figuring out and reading about to get the
+                #wrist landmark for below. the x coord is also given
+                #in a value 0-1, so i had to times it by the width
                 wrist_x = int(hand_landmarks.landmark[0].x * width)
 
-                # Count the number of extended fingers (index, middle, ring, pinky)
-                finger_states = [int(hand_landmarks.landmark[i].y < hand_landmarks.landmark[i - 2].y) for i in range(8, 21, 4)]
+                #counting the # of extended fingers, needs 4 for powerup
+                #ranges from 8,12,16,20 because those re the tips of the finger
+                finger_states = [int(hand_landmarks.landmark[i].y < 
+                                     hand_landmarks.landmark[i - 2].y) 
+                                     for i in range(8, 21, 4)]
 
-                if wrist_x < width / 2:  # Left side of the screen (Player 1)
+                if wrist_x < width / 2:  #left half-player 1
                     if sum(finger_states) == 4:
                         print('Power-Up-Player1')
-                else:  # Right side of the screen (Player 2)
+                else:  #right half-player 2
                     if sum(finger_states) == 4:
                         print('Power-Up-Player2')
     
-        #Getting Area
+        #getting Area
         if results.multi_hand_landmarks:
             # print(results.multi_hand_landmarks)
-            landmarkList = results.multi_hand_landmarks[0]
             for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
                 for landmark in hand_landmarks.landmark:
                     x = landmark.x
