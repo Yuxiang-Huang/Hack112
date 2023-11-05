@@ -1,4 +1,5 @@
 from cmu_graphics import *
+from usefulFunctions import *
 
 
 class Player:
@@ -11,6 +12,7 @@ class Player:
         self.speed = 10
         self.moveKeys = moveKeys
         self.moveDirections = [False, False, False, False]
+        self.powerUp = None
 
     def display(self, app):
         if self.hasFlag:
@@ -85,6 +87,21 @@ class Player:
         for rock in app.rocks:
             if rock.checkCollision(self.pos, self.size / 2):
                 rock.pushPlayerOut(self)
+
+        # check to get power up
+        index = len(app.powerUps) - 1
+        while index >= 0:
+            if collisionBetweenTwoRects(
+                self.pos,
+                self.size,
+                self.size,
+                app.powerUps[index].pos,
+                app.powerUpSize,
+                app.powerUpSize,
+            ):
+                self.powerUp = app.powerUps[index]
+                app.powerUps.pop(index)
+            index -= 1
 
     def updateDirection(self, key, boolean):
         if self.moveKeys[0] in key:
