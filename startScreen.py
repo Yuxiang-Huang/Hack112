@@ -205,7 +205,7 @@ def instructionsScreen3(app):
         app.width / 2 - 100,
         app.height / 2,
         align="center",
-        width=100,
+        width=50,
         height=100,
     )
     drawImage(
@@ -314,7 +314,7 @@ def instructionsScreen4(app):
 
 def instructionsScreen5(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
-    drawLabel("Powerups", app.width / 2, app.height / 8, fill="white", size=80)
+    drawLabel("Power-Ups", app.width / 2, app.height / 8, fill="white", size=80)
     drawLabel(
         "open your hand or press either",
         app.width / 2,
@@ -352,7 +352,7 @@ def instructionsScreen5(app):
         height=75,
     )
     drawLabel(
-        "Teleport in a random direction",
+        "Teleport forward",
         app.width / 2 + 20,
         app.height / 2 - 5,
         fill="white",
@@ -367,7 +367,7 @@ def instructionsScreen5(app):
         height=75,
     )
     drawLabel(
-        "Push enemys within a radius away",
+        "Push the enemy away",
         app.width / 2 + 20,
         app.height / 2 + 105,
         fill="white",
@@ -393,7 +393,7 @@ def instructionsScreen5(app):
 
 def instructionsScreen6(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
-    drawLabel("Powerups", app.width / 2, app.height / 8, fill="white", size=80)
+    drawLabel("Power-Ups", app.width / 2, app.height / 8, fill="white", size=80)
     drawLabel(
         "open your hand or press either",
         app.width / 2,
@@ -431,7 +431,7 @@ def instructionsScreen6(app):
         height=75,
     )
     drawLabel(
-        "Drop a mine to trap enemys",
+        "Drop a mine to trap the enemy",
         app.width / 2 + 20,
         app.height / 2 - 5,
         fill="white",
