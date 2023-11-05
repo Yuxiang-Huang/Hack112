@@ -160,7 +160,7 @@ def instructionsScreen1(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
     drawLabel(
-        "Capture their flag!!!", app.width / 2, app.height / 4, fill="white", size=50
+        "Capture their pearls!!!", app.width / 2, app.height / 4, fill="white", size=50
     )
     drawSimpleFishToPearl(app)
     drawNextButton(app)
@@ -170,7 +170,11 @@ def instructionsScreen2(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
     drawLabel(
-        "Return the flag!!!", app.width / 2, app.height / 4, fill="white", size=50
+        "Return to your base with the pearl!!!",
+        app.width / 2,
+        app.height / 4,
+        fill="white",
+        size=50,
     )
     drawLine(
         275,
