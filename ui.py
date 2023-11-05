@@ -33,6 +33,9 @@ def drawScreen(app):
         app.fieldCanvas["height"],
         fill="lightGreen",
     )
+    
+    #score
+    # drawLabel()
 
     # vertical center line
     drawLine(app.width / 2, 0, app.width / 2, app.height, fill="black")
