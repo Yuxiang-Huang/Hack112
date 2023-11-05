@@ -4,6 +4,7 @@ from gameManager import *
 
 
 def setIntroScreenVaribles(app):
+    app.ARMode = False
     app.screenIndex = 0
     app.infoScreen = False
     app.gameStarted = False
@@ -17,38 +18,46 @@ def setIntroScreenVaribles(app):
 
 
 def onMousePress(app, mouseX, mouseY):
-    if (
-        not app.infoScreen
-        and mouseX <= ((app.width / 3) + 150)
-        and mouseX >= ((app.width / 3) - 150)
-        and mouseY <= (app.height * 3 / 4) + 50
-        and mouseY >= (app.height * 3 / 4) - 50
-    ):
-        startGame(app)
-        app.gameStarted = True
-    elif (
-        not app.infoScreen
-        and mouseX <= ((app.width * 2 / 3) + 200)
-        and mouseX >= ((app.width * 2 / 3) - 200)
-        and mouseY <= (app.height * 3 / 4) + 50
-        and mouseY >= (app.height * 3 / 4) - 50
-    ):
-        app.infoScreen = True
-    elif (
-        app.infoScreen
-        and mouseX <= app.width / 2 + 150
-        and mouseX >= app.width / 2 - 150
-        and mouseY <= app.height * 3 / 4 + 50
-        and mouseY >= app.height * 3 / 4 - 50
-    ):
-        app.screenIndex += 1
-        if app.screenIndex == len(app.screens):
-            app.screenIndex = 0
-            app.infoScreen = False
+    if not app.infoScreen:
+        # start game without AR
+        if (
+            mouseX <= ((app.width / 3) + 150)
+            and mouseX >= ((app.width / 3) - 150)
+            and mouseY <= (app.height * 3 / 4) + 50
+            and mouseY >= (app.height * 3 / 4) - 50
+        ):
+            startGame(app, False)
+            app.gameStarted = True
+        #  start game with AR
+        elif mouseX <= (100) and mouseX >= (0) and mouseY <= (100) and mouseY >= (0):
+            startGame(app, True)
+            app.gameStarted = True
+        # start slide show
+        elif (
+            mouseX <= ((app.width * 2 / 3) + 200)
+            and mouseX >= ((app.width * 2 / 3) - 200)
+            and mouseY <= (app.height * 3 / 4) + 50
+            and mouseY >= (app.height * 3 / 4) - 50
+        ):
+            app.infoScreen = True
+    else:
+        # slideshow button
+        if (
+            mouseX <= app.width / 2 + 150
+            and mouseX >= app.width / 2 - 150
+            and mouseY <= app.height * 3 / 4 + 50
+            and mouseY >= app.height * 3 / 4 - 50
+        ):
+            app.screenIndex += 1
+            # out of bound to return to home screen
+            if app.screenIndex == len(app.screens):
+                app.screenIndex = 0
+                app.infoScreen = False
 
 
 def startScreen(app):
     drawRect(0, 0, app.width, app.height, fill="lightgreen")
+    drawRect(0, 0, 100, 100)
     drawLabel(
         "Capture the Flag!!!",
         app.width / 2,
@@ -79,7 +88,6 @@ def startScreen(app):
     drawLabel(
         "Instructions", app.width * 2 / 3, (app.height * 3 / 4), fill="white", size=70
     )
-    drawImage(app.imageDict["oyster"], 100, 100, align="center", width=100, height=100)
 
 
 def instructionsScreen1(app):

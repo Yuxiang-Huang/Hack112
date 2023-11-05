@@ -1,8 +1,10 @@
 from playerLogic import *
 from map import *
+import cv2
+import mediapipe as mp
 
 
-def startGame(app):
+def startGame(app, ARMode):
     app.paused = False
 
     # create player and flag objects
@@ -23,6 +25,16 @@ def startGame(app):
     app.timeUntilSpawn = app.powerUpSpawnTime
     app.powerUpSize = 45
     app.powerUpCoolDown = 150
+
+    # AR Mode set up
+    if ARMode:
+        app.ARMode = True
+        app.mp_drawing = mp.solutions.drawing_utils
+        app.mp_hands = mp.solutions.hands
+        app.cap = cv2.VideoCapture(0)
+        app.hands = app.mp_hands.Hands(
+            min_detection_confidence=0.8, min_tracking_confidence=0.5
+        )
 
 
 def checkPlayerCollision(app):
