@@ -13,7 +13,7 @@ class Player:
         self.speed = 10
         self.score = 0
 
-        # AR
+        # AR Values to draw movement tractor
         self.ARVals = [0, 0]
 
         # keys and movement
@@ -434,6 +434,7 @@ def displayTopBarP2(app):
 
 def drawMovementTractor(app, player, startX):
     size = app.topBarHeight * 4 / 5
+    # draw the board
     drawRect(
         startX,
         app.topBarHeight / 2,
@@ -467,7 +468,7 @@ def drawMovementTractor(app, player, startX):
         startX + size / 3,
         app.topBarHeight / 2 + size / 2,
     )
-    # using ar result
+    # using AR result
     if not (player.ARVals[0] == 0 and player.ARVals[1] == 0):
         xVal = player.ARVals[0] / (3 / 7) * size + startX
         yVall = player.ARVals[1] * size + app.topBarHeight / 2 - size / 2
@@ -481,6 +482,7 @@ def drawMovementTractor(app, player, startX):
 
 
 def getIndicesFromMoveDirections(movement):
+    # for drawing on the board so pretty arbitrary
     ans = [1, 1]
     if movement[0] and not movement[2]:
         ans[1] = 0

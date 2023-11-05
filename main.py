@@ -39,15 +39,17 @@ def redrawAll(app):
 
 
 def onKeyHold(app, key):
-    app.p1.updateDirection(key, True)
-    app.p2.updateDirection(key, True)
-    app.p1.tryUsePowerUp(app, key)
-    app.p2.tryUsePowerUp(app, key)
+    if app.gameStarted:
+        app.p1.updateDirection(key, True)
+        app.p2.updateDirection(key, True)
+        app.p1.tryUsePowerUp(app, key)
+        app.p2.tryUsePowerUp(app, key)
 
 
 def onKeyRelease(app, key):
-    app.p1.updateDirection(key, False)
-    app.p2.updateDirection(key, False)
+    if app.gameStarted:
+        app.p1.updateDirection(key, False)
+        app.p2.updateDirection(key, False)
 
 
 def onStep(app):
@@ -157,7 +159,7 @@ def onStep(app):
                     # print("Power-Up-Player2")
                     app.p2.tryUsePowerUpARMode(app)
 
-    # getting average
+    # calculate average
     totalP1X = 0
     totalP1Y = 0
 
@@ -166,14 +168,13 @@ def onStep(app):
 
     P1count = 0
     P2count = 0
-
     if results.multi_hand_landmarks:
         # print(results.multi_hand_landmarks)
         for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
-            print(hand_landmarks.landmark)
             for j in range(len(hand_landmarks.landmark)):
                 # skip skew points
                 if j > 3:
+                    # sum the rest of the point
                     landmark = hand_landmarks.landmark[j]
                     if landmark.x <= 3 / 7:
                         totalP1X += landmark.x
@@ -184,6 +185,7 @@ def onStep(app):
                         totalP2Y += landmark.y
                         P2count += 1
 
+    # make something registered
     if P1count != 0:
         x = totalP1X / P1count
         y = totalP1Y / P1count
@@ -223,6 +225,7 @@ def onStep(app):
             # print("Down-Right-Player1")
             app.p1.moveDirections = [False, False, True, True]
 
+    # same thing for P2
     if P2count != 0:
         x = totalP2X / P2count
         y = totalP2Y / P2count
