@@ -3,12 +3,9 @@ from PIL import Image
 
 
 def loadImages(app):
-    app.width = 1200
-    app.height = 700
     # Load the PIL image
     app.imageDict = {
         "freeze": "img/freeze.png",
-        "bounceObject": "img/bounceObject.png",
         "mine": "img/mine.png",
         "pushAway": "img/pushAway.png",
         "teleport": "img/teleport.png",
@@ -21,6 +18,8 @@ def loadImages(app):
         "blueFish": "img/blueGoldFishGoingRight.png",
         "redFish": "img/redGoldFishGoingLeft.png",
         "clock": "img/clock.png",
+        "frozenRedFish": "img/frozenRedFish.png",
+        "frozenBlueFish": "img/frozenBlueFish.png"
     }
 
     for imgName in app.imageDict:
