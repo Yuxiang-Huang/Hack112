@@ -22,18 +22,23 @@ class Player:
         )
 
     def update(self, app):
+        curSpeed = self.speed
+        for seaweed in app.seaweeds:
+            if seaweed.checkCollision(self):
+                curSpeed /= 2
+
         # up
         if self.moveDirections[0]:
-            self.pos[1] -= self.speed
+            self.pos[1] -= curSpeed
         # left
         if self.moveDirections[1]:
-            self.pos[0] -= self.speed
+            self.pos[0] -= curSpeed
         # down
         if self.moveDirections[2]:
-            self.pos[1] += self.speed
+            self.pos[1] += curSpeed
         # right
         if self.moveDirections[3]:
-            self.pos[0] += self.speed
+            self.pos[0] += curSpeed
 
         # boundary check
         self.pos[0] = max(0 + self.size / 2, self.pos[0])
@@ -47,7 +52,7 @@ class Player:
             self.pos[1],
         )
 
-        # obstacle check
+        # rock obstacle check
         for rock in app.rocks:
             if rock.checkCollision(self.pos, self.size / 2):
                 rock.pushPlayerOut(self)

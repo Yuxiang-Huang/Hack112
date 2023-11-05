@@ -29,6 +29,7 @@ class Seaweed:
         if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
             if abs(self.pos[1] - player.pos[1]) < self.height / 2 + player.size / 2:
                 return True
+        return False
 
     def display(self):
         drawImage(
