@@ -73,18 +73,19 @@ class PushAway(PowerUp):
     def __init__(self, pos):
         self.pos = pos
         self.name = "pushAway"
-        self.pushAwayConstant = 50  # dist divide by pushAwayConstant = seconds to be pushed with a max of 2 and min of 0.5
+        self.pushAwayConstant = 150  # dist divide by pushAwayConstant = seconds to be pushed with a max of 2 and min of 0.5
         self.pushAwayMaxStrength = 15
         self.pushAwayMinStrength = 5
 
     def use(self, app, player):
-        dist = distance(self.pos[0], self.pos[1], player.pos[0], player.pos[1])
-        pushTime = max(min(2, self.pushAwayConstant / dist), 0.5) * app.stepsPerSecond
         if player == app.p1:
             other = app.p2
         else:
             other = app.p1
         pushDir = pushOutDir(player.pos, other.pos)
+        dist = distance(other.pos[0], other.pos[1], player.pos[0], player.pos[1])
+        pushTime = max(min(1.5, self.pushAwayConstant / dist), 0.5) * app.stepsPerSecond
+        print(pushTime)
         other.pushAway(
             pushDir,
             self.pushAwayMaxStrength,

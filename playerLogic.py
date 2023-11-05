@@ -58,6 +58,9 @@ class Player:
                 else:
                     self.drawImageHelper("redFish")
 
+        if self.beingPushed:
+            self.drawImageHelper("pushAway")
+
     def drawImageHelper(self, nameOfImage):
         drawImage(
             app.imageDict[nameOfImage],
