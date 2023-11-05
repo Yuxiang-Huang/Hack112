@@ -22,10 +22,10 @@ def onMousePress(app, mouseX, mouseY):
     if not app.infoScreen:
         # start game without AR
         if (
-            mouseX <= ((app.width / 3) + 150)
-            and mouseX >= ((app.width / 3) - 150)
-            and mouseY <= (app.height * 3 / 4) + 50
-            and mouseY >= (app.height * 3 / 4) - 50
+            mouseX <= (1100)
+            and mouseX >= (300)
+            and mouseY <= (app.height * 2 / 5) + 50
+            and mouseY >= (app.height * 2 / 5) - 50
         ):
             startGame(app, False)
             app.gameStarted = True
@@ -57,7 +57,9 @@ def onMousePress(app, mouseX, mouseY):
 
 
 def startScreen(app):
+    # the background color
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
+    # the title
     drawLabel(
         "Capture the Flag!!!",
         app.width / 2,
@@ -66,29 +68,42 @@ def startScreen(app):
         bold=True,
         fill="white",
     )
+    
+    # start with AR
     drawRect(
-        app.width / 3,
-        (app.height * 3 / 4),
-        300,
+        app.width / 2,
+        (app.height *2 / 5),
+        500,
         100,
-        fill="lightgreen",
+        fill=rgb(129, 114, 177),
         align="center",
         border="white",
     )
-    drawLabel("START!", app.width / 3, (app.height * 3 / 4), fill="red", size=70)
+    drawLabel("START with AR", app.width / 2, (app.height * 2/ 5), fill="blue", size=40)
+    
+    # start with keyboard
     drawRect(
-        app.width * 2 / 3,
-        (app.height * 3 / 4),
-        400,
+        app.width / 2,
+        (app.height *3 / 5),
+        500,
         100,
-        fill="grey",
+        fill=rgb(129, 114, 177),
         align="center",
         border="white",
     )
-    drawLabel(
-        "Instructions", app.width * 2 / 3, (app.height * 3 / 4), fill="white", size=70
-    )
+    drawLabel("START with keyboard", app.width / 2, (app.height * 3/ 5), fill="red", size=40)
 
+    # instructions
+    drawRect(
+        app.width / 2,
+        (app.height *4 / 5),
+        500,
+        100,
+        fill="gray",
+        align="center",
+        border="white",
+    )
+    drawLabel("Instructions", app.width / 2, (app.height * 4/ 5), fill="white", size=40)
 
 def drawNextButton(app):
     drawRect(
