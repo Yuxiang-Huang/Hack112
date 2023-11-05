@@ -56,20 +56,92 @@ class Freeze:
 
 
 class Teleport:
-    pass
+    def __init__(self, pos):
+        self.pos = pos
+
+    def display(self, app):
+        drawImage(
+            app.imageDict["teleport"],
+            self.pos[0],
+            self.pos[1],
+            align="center",
+            width=app.powerUpSize,
+            height=app.powerUpSize,
+        )
+
+    def use(self, app, player):
+        pass
 
 
-class PushBack:
-    pass
+class PushAway:
+    def __init__(self, pos):
+        self.pos = pos
+
+    def display(self, app):
+        drawImage(
+            app.imageDict["pushAway"],
+            self.pos[0],
+            self.pos[1],
+            align="center",
+            width=app.powerUpSize,
+            height=app.powerUpSize,
+        )
+
+    def use(self, app, player):
+        pass
 
 
 class Speed:
-    pass
+    def __init__(self, pos):
+        self.pos = pos
+
+    def display(self, app):
+        # drawImage(
+        #     app.imageDict["freeze"],
+        #     self.pos[0],
+        #     self.pos[1],
+        #     align="center",
+        #     width=app.powerUpSize,
+        #     height=app.powerUpSize,
+        # )
+        pass
+
+    def use(self, app, player):
+        pass
 
 
 class Time:
-    pass
+    def __init__(self, pos):
+        self.pos = pos
+
+    def display(self, app):
+        # drawImage(
+        #     app.imageDict["freeze"],
+        #     self.pos[0],
+        #     self.pos[1],
+        #     align="center",
+        #     width=app.powerUpSize,
+        #     height=app.powerUpSize,
+        # )
+        pass
+
+    def use(self, app, player):
+        pass
 
 
 class Mine:
-    pass
+    def __init__(self, pos):
+        self.pos = pos
+
+    def display(self, app):
+        drawImage(
+            app.imageDict["mine"],
+            self.pos[0],
+            self.pos[1],
+            align="center",
+            width=app.powerUpSize,
+            height=app.powerUpSize,
+        )
+
+    def use(self, app, player):
+        pass
