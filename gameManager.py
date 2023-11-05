@@ -2,8 +2,10 @@ def checkPlayerCollision(app):
     if abs(app.p1.pos[0] - app.p2.pos[0]) < app.p1.size / 2 + app.p2.size / 2:
         if abs(app.p1.pos[1] - app.p2.pos[1]) < app.p1.size / 2 + app.p2.size / 2:
             if app.p1.pos[0] > app.width / 2:
+                app.p2.getPowerUp(app.p1)
                 app.p1.respawn(app.flag2)
             if app.p2.pos[0] < app.width / 2:
+                app.p1.getPowerUp(app.p2)
                 app.p2.respawn(app.flag1)
 
 
@@ -20,8 +22,10 @@ def checkPlayerWin(app):
     if app.p1.hasFlag and app.p1.pos[0] < app.p1.size:
         app.p1Score += 1
         app.p1.hasFlag = False
+        app.p1.resetPowerUp()
         app.flag2.captured = False
     if app.p2.hasFlag and app.p2.pos[0] > app.width - app.p2.size:
         app.p2Score += 1
+        app.p2.resetPowerUp()
         app.p2.hasFlag = False
         app.flag1.captured = False

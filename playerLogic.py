@@ -127,7 +127,11 @@ class Player:
             self.moveDirections[3] = boolean
 
     def tryUsePowerUp(self, app, keys):
-        if self.powerUpKey in keys and self.powerUpCoolDown <= 0:
+        if (
+            self.powerUpKey in keys
+            and self.powerUpCoolDown <= 0
+            and self.powerUp != None
+        ):
             self.powerUp.use(app, self)
             self.powerUpCoolDown = app.powerUpCoolDown
 
@@ -136,10 +140,19 @@ class Player:
         self.freezeTime = app.stepsPerSecond
 
     def respawn(self, otherFlag):
+        self.resetPowerUp()
         self.pos = [self.spawnPosition[0], self.spawnPosition[1]]
         if self.hasFlag:
             self.hasFlag = False
             otherFlag.captured = False
+
+    def resetPowerUp(self):
+        self.powerUp = None
+        self.powerUpCoolDown = 0
+
+    def getPowerUp(self, other):
+        self.powerUp = other.powerUp
+        self.powerUpName = other.powerUpName
 
 
 def displayTopBarP1(app):
