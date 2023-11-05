@@ -63,66 +63,78 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
         cv2.line(frame, line9[0], line9[1], (0, 255, 0), 2)
         cv2.line(frame, line10[0], line10[1], (0, 255, 0), 2)
 
-        # Rendering results
+        #Overlaying Skeleton
+         # Overlaying Skeleton and check for fingers up
         if results.multi_hand_landmarks:
-            for num, hand in enumerate(results.multi_hand_landmarks):
-                mp_drawing.draw_landmarks(frame, hand, mp_hands.HAND_CONNECTIONS,
+            for hand_landmarks in results.multi_hand_landmarks:
+                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS,
                                           mp_drawing.DrawingSpec(color=(121, 22, 76), thickness=2, circle_radius=4),
                                           mp_drawing.DrawingSpec(color=(250, 44, 250), thickness=2, circle_radius=2),
                                           )
-                print(hand)
 
-        # Rendering results
+                # Calculate the x-coordinate of the wrist (landmark 0)
+                wrist_x = int(hand_landmarks.landmark[0].x * width)
+
+                # Count the number of extended fingers (index, middle, ring, pinky)
+                finger_states = [int(hand_landmarks.landmark[i].y < hand_landmarks.landmark[i - 2].y) for i in range(8, 21, 4)]
+
+                if wrist_x < width / 2:  # Left side of the screen (Player 1)
+                    if sum(finger_states) == 4:
+                        print('Power-Up-Player1')
+                else:  # Right side of the screen (Player 2)
+                    if sum(finger_states) == 4:
+                        print('Power-Up-Player2')
+    
+        #Getting Area
         if results.multi_hand_landmarks:
             # print(results.multi_hand_landmarks)
             landmarkList = results.multi_hand_landmarks[0]
             for i, hand_landmarks in enumerate(results.multi_hand_landmarks):
                 for landmark in hand_landmarks.landmark:
-                    print("I ENTERED IF")
                     x = landmark.x
                     y = landmark.y
                     
                     if 0 <= x <= 1/7 and 0 <= y <= 1/3:
-                        print('Up-Left-Player 1')
+                        print('Up-Left-Player2')
                     elif 1/7 <= x <= 2/7 and 0 <= y <= 1/3:
-                        print('Up-Player 1')
+                        print('Up-Player1')
                     elif 2/7 <= x <= 3/7 and 0 <= y <= 1/3:
-                        print('Up-Right-Player 1')
+                        print('Up-Right-Player1')
 
                     elif 0 <= x <= 1/7 and 1/3 <= y <= 2/3:
-                        print('Left-Player 1')
+                        print('Left-Player1')
                     elif 1/7 <= x <= 2/7 and 1/3 <= y <= 2/3:
-                        print('Center-Player 1')
+                        print('Center-Player1')
                     elif 2/7 <= x <= 3/7 and 1/3 <= y <= 2/3:
-                        print('Right-Player 1')
+                        print('Right-Player1')
                     
                     elif 0 <= x <= 1/7 and 2/3 <= y <= 1:
-                        print('Down-Left-Player 1')
+                        print('Down-Left-Player1')
                     elif 1/7 <= x <= 2/7 and 2/3 <= y <= 1:
-                        print('Down-Player 1')
+                        print('Down-Player1')
                     elif 2/7 <= x <= 3/7 and 2/3 <= y <= 1:
-                        print('Down-Right-Player 1')
+                        print('Down-Right-Player1')
 
                     elif 4/7 <= x <= 5/7 and 0 <= y <= 1/3:
-                        print('Up-Left-Player 2')
+                        print('Up-Left-Player2')
                     elif 5/7 <= x <= 6/7 and 0 <= y <= 1/3:
-                        print('Up-Player 2')
+                        print('Up-Player2')
                     elif 6/7 <= x <= 1 and 0 <= y <= 1/3:
-                        print('Up-Right-Player 2')
+                        print('Up-Right-Player2')
 
                     elif 4/7 <= x <= 5/7 and 1/3 <= y <= 2/3:
-                        print('Left-Player 2')
+                        print('Left-Player2')
                     elif 5/7 <= x <= 6/7 and 1/3 <= y <= 2/3:
-                        print('Center-Player 2')
+                        print('Center-Player2')
                     elif 6/7 <= x <= 1 and 1/3 <= y <= 2/3:
-                        print('Right-Player 2')
+                        print('Right-Player2')
                     
                     elif 4/7 <= x <= 5/7 and 2/3 <= y <= 1:
-                        print('Down-Left-Player 2')
+                        print('Down-Left-Player2')
                     elif 5/7 <= x <= 6/7 and 2/3 <= y <= 1:
-                        print('Down-Player 2')
+                        print('Down-Player2')
                     elif 6/7 <= x <= 1 and 2/3 <= y <= 1:
-                        print('Down-Right-Player 2')
+                        print('Down-Right-Player2')
                     
                     break
                         
