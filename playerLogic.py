@@ -1,5 +1,6 @@
 from cmu_graphics import *
 from usefulFunctions import *
+import random
 
 
 class Player:
@@ -145,6 +146,7 @@ class Player:
             if app.powerUps[index].checkCollision(self, app):
                 self.powerUp = app.powerUps[index]
                 self.powerUpName = app.powerUps[index].name
+                self.powerUpCoolDown = 0
                 app.powerUps.pop(index)
             index -= 1
 
@@ -158,6 +160,7 @@ class Player:
         if self.moveKeys[3] in keys:
             self.moveDirections[3] = boolean
 
+    # region power ups usages
     def tryUsePowerUp(self, app, keys):
         if (
             self.powerUpKey in keys
@@ -182,6 +185,32 @@ class Player:
         self.speedy = True
         self.speedUptime = speedUptime
 
+    def teleport(self, teleportDist):
+        vector = [0, 0]
+        # up
+        if self.moveDirections[0]:
+            vector[1] -= 1
+        # left
+        if self.moveDirections[1]:
+            vector[0] -= 1
+        # down
+        if self.moveDirections[2]:
+            vector[1] += 1
+        # right
+        if self.moveDirections[3]:
+            vector[0] += 1
+        # random vector if not moving
+        while vector[0] == 0 and vector[1] == 0:
+            vector = [random.randint(-1, 1), random.randint(-1, 1)]
+        # normalize
+        vector = normalize(vector)
+        # teleport
+        self.pos[0] += vector[0] * teleportDist
+        self.pos[1] += vector[1] * teleportDist
+
+    # endregion
+
+    # region resets
     def respawn(self, otherFlag):
         self.resetPowerUp()
         self.pos = [self.spawnPosition[0], self.spawnPosition[1]]
@@ -196,6 +225,9 @@ class Player:
     def getPowerUp(self, other):
         self.powerUp = other.powerUp
         self.powerUpName = other.powerUpName
+        self.powerUpCoolDown = 0
+
+    # endregion
 
 
 def displayTopBarP1(app):

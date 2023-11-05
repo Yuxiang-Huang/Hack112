@@ -16,7 +16,11 @@ def distance(x1, y1, x2, y2):
 # normalized direction of pos 1 pushing outnpos 2
 def pushOutDir(pos1, pos2):
     # find normalized vector
-    nVector = [pos2[0] - pos1[0], pos2[1] - pos1[1]]
-    mag = (nVector[0] ** 2 + nVector[1] ** 2) ** 0.5
-    nVector = [nVector[0] / mag, nVector[1] / mag]
-    return nVector
+    vector = [pos2[0] - pos1[0], pos2[1] - pos1[1]]
+    return normalize(vector)
+
+
+def normalize(vector):
+    mag = (vector[0] ** 2 + vector[1] ** 2) ** 0.5
+    vector = [vector[0] / mag, vector[1] / mag]
+    return vector

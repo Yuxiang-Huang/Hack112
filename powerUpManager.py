@@ -23,6 +23,8 @@ def spawnPowerUp(app):
 
     choice = random.randint(0, 6)
     if choice >= 0:
+        app.powerUps.append(Teleport(randomPos))
+    elif choice >= 0:
         app.powerUps.append(Speed(randomPos))
     elif choice >= 0:
         app.powerUps.append(PushAway(randomPos))
@@ -103,3 +105,13 @@ class Speed(PowerUp):
 
     def use(self, app, player):
         player.speedUp(app.stepsPerSecond * 2)  # speed up time
+
+
+class Teleport(PowerUp):
+    def __init__(self, pos):
+        self.pos = pos
+        self.name = "teleport"
+        self.teleportDist = 300
+
+    def use(self, app, player):
+        player.teleport(self.teleportDist)
