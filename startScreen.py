@@ -20,25 +20,29 @@ def setIntroScreenVaribles(app):
 
 def onMousePress(app, mouseX, mouseY):
     if not app.infoScreen:
-        # start game without AR
+        # start game with AR
         if (
-            mouseX <= (1100)
-            and mouseX >= (300)
+            mouseX <= mouseX <= app.width / 2 + 250
+            and mouseX >= app.width / 2 - 250
             and mouseY <= (app.height * 2 / 5) + 50
             and mouseY >= (app.height * 2 / 5) - 50
         ):
-            startGame(app, False)
-            app.gameStarted = True
-        #  start game with AR
-        elif mouseX <= (100) and mouseX >= (0) and mouseY <= (100) and mouseY >= (0):
             startGame(app, True)
+            app.gameStarted = True
+        #  start game without AR
+        elif (
+            (mouseX <= app.width / 2 + 250 and mouseX >= app.width / 2 - 250)
+            and mouseY <= (app.height * 3 / 5) + 50
+            and mouseY >= (app.height * 3 / 5) - 50
+        ):
+            startGame(app, False)
             app.gameStarted = True
         # start slide show
         elif (
-            mouseX <= ((app.width * 2 / 3) + 200)
-            and mouseX >= ((app.width * 2 / 3) - 200)
-            and mouseY <= (app.height * 3 / 4) + 50
-            and mouseY >= (app.height * 3 / 4) - 50
+            mouseX <= app.width / 2 + 250
+            and mouseX >= app.width / 2 - 250
+            and mouseY <= (app.height * 4 / 5) + 50
+            and mouseY >= (app.height * 4 / 5) - 50
         ):
             app.infoScreen = True
     else:
@@ -68,42 +72,49 @@ def startScreen(app):
         bold=True,
         fill="white",
     )
-    
+
     # start with AR
     drawRect(
         app.width / 2,
-        (app.height *2 / 5),
+        (app.height * 2 / 5),
         500,
         100,
         fill=rgb(129, 114, 177),
         align="center",
         border="white",
     )
-    drawLabel("START with AR", app.width / 2, (app.height * 2/ 5), fill="blue", size=40)
-    
+    drawLabel(
+        "START with AR", app.width / 2, (app.height * 2 / 5), fill="blue", size=40
+    )
+
     # start with keyboard
     drawRect(
         app.width / 2,
-        (app.height *3 / 5),
+        (app.height * 3 / 5),
         500,
         100,
         fill=rgb(129, 114, 177),
         align="center",
         border="white",
     )
-    drawLabel("START with keyboard", app.width / 2, (app.height * 3/ 5), fill="red", size=40)
+    drawLabel(
+        "START with keyboard", app.width / 2, (app.height * 3 / 5), fill="red", size=40
+    )
 
     # instructions
     drawRect(
         app.width / 2,
-        (app.height *4 / 5),
+        (app.height * 4 / 5),
         500,
         100,
         fill="gray",
         align="center",
         border="white",
     )
-    drawLabel("Instructions", app.width / 2, (app.height * 4/ 5), fill="white", size=40)
+    drawLabel(
+        "Instructions", app.width / 2, (app.height * 4 / 5), fill="white", size=40
+    )
+
 
 def drawNextButton(app):
     drawRect(
