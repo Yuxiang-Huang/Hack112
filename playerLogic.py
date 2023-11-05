@@ -8,7 +8,7 @@ class Player:
         self.color = color
         self.hasFlag = False
         self.spawnPosition = spawnPosition
-        self.size = 100
+        self.size = 75
         self.speed = 10
 
         # keys and movement
@@ -35,15 +35,11 @@ class Player:
                 fill="purple",
                 align="center",
             )
+            # if self == app.p1:
+            #     self.drawImageHelper("freeze")
+            # else:
+            #     self.drawImageHelper("freeze")
         else:
-            # drawRect(
-            #     self.pos[0],
-            #     self.pos[1],
-            #     self.size,
-            #     self.size,
-            #     fill=self.color,
-            #     align="center",
-            # )
             if self == app.p1:
                 if self.frozen:
                     self.drawImageHelper("freeze")

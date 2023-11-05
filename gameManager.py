@@ -17,11 +17,11 @@ def checkPlayerFlagCollision(app):
 
 
 def checkPlayerWin(app):
-    if app.p1.hasFlag and app.p1.pos[0] < app.margin:
+    if app.p1.hasFlag and app.p1.pos[0] < app.p1.size:
         app.p1Score += 1
         app.p1.hasFlag = False
         app.flag2.captured = False
-    if app.p2.hasFlag and app.p2.pos[0] > app.width - app.margin:
+    if app.p2.hasFlag and app.p2.pos[0] > app.width - app.p2.size:
         app.p2Score += 1
         app.p2.hasFlag = False
         app.flag1.captured = False

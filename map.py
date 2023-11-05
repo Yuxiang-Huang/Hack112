@@ -44,8 +44,9 @@ class Flag:
 class Seaweed:
     def __init__(self, pos):
         self.pos = pos
-        self.width = 150
-        self.height = 200
+        factor = random.random() / 2 + 0.5
+        self.width = 100 * factor
+        self.height = 200 * factor
 
     def checkCollision(self, player):
         return collisionBetweenTwoRects(
@@ -77,17 +78,7 @@ class Rock:
         return collisionBetweenTwoCircles(self.pos, self.radius, otherPos, otherR)
 
     def pushPlayerOut(self, player):
-        # find normalized vector
-        nVector = [player.pos[0] - self.pos[0], player.pos[1] - self.pos[1]]
-        mag = (
-            (self.pos[0] - player.pos[0]) ** 2 + (self.pos[1] - player.pos[1]) ** 2
-        ) ** 0.5
-        nVector = [nVector[0] / mag, nVector[1] / mag]
-        # change player position to be just outside the rock
-        player.pos = [
-            self.pos[0] + (self.radius + player.size / 2) * nVector[0],
-            self.pos[1] + (self.radius + player.size / 2) * nVector[1],
-        ]
+        player.pos = pushOut(self.pos, player.pos, self.radius + player.size / 2)
 
     def display(self):
         # drawImage(

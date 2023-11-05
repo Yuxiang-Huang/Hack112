@@ -11,3 +11,16 @@ def collisionBetweenTwoCircles(pos1, r1, pos2, r2):
 
 def dist(x1, y1, x2, y2):
     return ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
+
+
+# pos 1 pushing pos 2 returning new position of pos 2
+def pushOut(pos1, pos2, radius):
+    # find normalized vector
+    nVector = [pos2[0] - pos1[0], pos2[1] - pos1[1]]
+    mag = (nVector[0] ** 2 + nVector[1] ** 2) ** 0.5
+    nVector = [nVector[0] / mag, nVector[1] / mag]
+    # change pos2 position to be just outside the pos1 + radius
+    return [
+        pos1[0] + radius * nVector[0],
+        pos1[1] + radius * nVector[1],
+    ]
