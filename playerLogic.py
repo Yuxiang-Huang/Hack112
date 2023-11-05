@@ -74,13 +74,13 @@ class Player:
         self.powerUpCoolDown = max(self.powerUpCoolDown, 0)
 
         # decrease push away time and strength
-        if self.pushAway:
+        if self.beingPushed:
             self.pushTime -= 1
             self.pos[0] += self.pushDir[0] * self.pushStrength
-            self.pos[1] -= self.pushDir[1] * self.pushStrength
+            self.pos[1] += self.pushDir[1] * self.pushStrength
             self.pushStrength -= self.pushStrengthChange
             if self.pushTime < 0:
-                self.pushAway = False
+                self.beingPushed = False
 
         # decrease freeze time until unfroezen
         if self.frozen:
@@ -161,7 +161,7 @@ class Player:
         self.beingPushed = True
         self.pushDir = pushDir
         self.pushStrength = pushStrength
-        self.pushStrengthChange = pushStrength / pushTime
+        self.pushStrengthChange = pushStrengthChange
         self.pushTime = pushTime
 
     def respawn(self, otherFlag):

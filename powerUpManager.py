@@ -24,7 +24,7 @@ def spawnPowerUp(app):
     choice = random.randint(0, 6)
     if choice >= 0:
         app.powerUps.append(PushAway(randomPos))
-    elif choice == 1:
+    elif choice >= 0:
         app.powerUps.append(Freeze(randomPos))
 
 
@@ -62,27 +62,31 @@ class Freeze(PowerUp):
         self.pos = pos
         self.name = "freeze"
 
-    def use(self, player):
-        player.freeze(app.stepsPerSecond)  # freeze time
+    def use(self, app, player):
+        if player == app.p1:
+            app.p2.freeze(app.stepsPerSecond)  # freeze time
+        else:
+            app.p1.freeze(app.stepsPerSecond)  # freeze time
 
 
 class PushAway(PowerUp):
     def __init__(self, pos):
         self.pos = pos
         self.name = "pushAway"
-        self.pushAwayConstant = (
-            50  # dist divide by pushAwayConstant = seconds to be pushed with a max of 2
-        )
+        self.pushAwayConstant = 50  # dist divide by pushAwayConstant = seconds to be pushed with a max of 2 and min of 0.5
         self.pushAwayMaxStrength = 15
         self.pushAwayMinStrength = 5
 
     def use(self, app, player):
-        dist = dist(self.pos[0], self.pos[1], player.pos[0], player.pos[1])
-        pushTime = min(2, self.pushAwayConstant / dist) * app.stepsPerSecond
-        pushDir = pushOutDir(self.pos, player)
-        player.pushAway(
+        dist = distance(self.pos[0], self.pos[1], player.pos[0], player.pos[1])
+        pushTime = max(min(2, self.pushAwayConstant / dist), 0.5) * app.stepsPerSecond
+        if player == app.p1:
+            other = app.p2
+        else:
+            other = app.p1
+        pushDir = pushOutDir(player.pos, other.pos)
+        other.pushAway(
             pushDir,
-            pushTime,
             self.pushAwayMaxStrength,
             (self.pushAwayMaxStrength - self.pushAwayMinStrength) / pushTime,
             pushTime,
