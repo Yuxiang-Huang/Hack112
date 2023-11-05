@@ -36,9 +36,6 @@ def collideWithAnyRock(app, pos):
 
 
 class PowerUp:
-    def __init__(self, pos):
-        self.pos = pos
-
     def display(self, app, imageName):
         drawImage(
             app.imageDict[imageName],
@@ -61,6 +58,10 @@ class PowerUp:
 
 
 class Freeze(PowerUp):
+    def __init__(self, pos):
+        self.pos = pos
+        self.name = "freeze"
+
     def display(self, app):
         PowerUp.display(self, app, "freeze")
 

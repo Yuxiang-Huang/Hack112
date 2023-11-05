@@ -33,10 +33,6 @@ def drawScreen(app):
         align="center",
     )
 
-    # score
-    drawLabel(f"current points: x", 100, app.topBarHeight / 2, size=16)
-    drawLabel(f"current points: y", app.width - 100, app.topBarHeight / 2, size=16)
-
     # vertical center line
     drawLine(app.width / 2, 0, app.width / 2, app.height, fill="black")
 

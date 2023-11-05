@@ -42,6 +42,7 @@ def onAppStart(app):
     app.powerUps = []
     app.timeUntilSpawn = 45
     app.powerUpSize = 45
+    app.powerUpCoolDown = 150
 
 
 def redrawAll(app):
