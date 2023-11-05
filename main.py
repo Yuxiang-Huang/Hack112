@@ -10,10 +10,10 @@ import mediapipe as mp
 
 
 def onAppStart(app):
-    app.cap = cv2.VideoCapture(0)
+    # app.cap = cv2.VideoCapture(0)
 
-    mp_hands = mp.solutions.hands
-    app.hands = mp_hands.Hands()
+    # mp_hands = mp.solutions.hands
+    # app.hands = mp_hands.Hands()
 
     loadImages(app)
     setDimensions(app)
@@ -30,8 +30,8 @@ def onAppStart(app):
     app.flag1 = Flag(app, (app.margin * 2, middleYVal))
     app.flag2 = Flag(app, (app.width - app.margin * 2, middleYVal))
 
-    app.p1score = 0
-    app.p2score = 0
+    app.p1Score = 0
+    app.p2Score = 0
 
     app.paused = False
 
@@ -61,6 +61,8 @@ def onKeyRelease(app, key):
 def onStep(app):
     if not app.paused:
         takeStep(app)
+
+    return
 
     ret, frame = app.cap.read()
     frame = cv2.flip(frame, 1)

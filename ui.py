@@ -4,28 +4,15 @@ from imageManager import *
 
 def setDimensions(app):
     app.margin = 50
-
-    app.cameraBoxWidth = 400
-    app.cameraBoxHeight = 200
+    app.topBarHeight = 75
 
     app.fieldCanvas = {
-        "topLeftY": app.cameraBoxHeight,
-        "height": app.height - app.cameraBoxHeight,
+        "topLeftY": app.topBarHeight,
+        "height": app.height - app.topBarHeight,
     }
 
 
 def drawScreen(app):
-    # camera boxes
-    drawRect(0, 0, app.cameraBoxWidth, app.cameraBoxHeight, border="black", fill=None)
-    drawRect(
-        app.width - app.cameraBoxWidth,
-        0,
-        app.cameraBoxWidth,
-        app.cameraBoxHeight,
-        border="black",
-        fill=None,
-    )
-
     # field
     drawImage(
         app.imageDict["oceanBackground"],
