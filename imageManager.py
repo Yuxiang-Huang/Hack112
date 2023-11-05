@@ -14,7 +14,8 @@ def loadImages(app):
         "teleport": "img/teleport.png",
         "rock": "img/rock.png",
         "seaweed": "img/seaweed.png",
-        "oyster": "img/oysterWithPearl.png"
+        "oyster-pearl": "img/oysterWithPearl.png",
+        "oyster": "img/closedOyster.png"
     }
 
     for imgName in app.imageDict:
