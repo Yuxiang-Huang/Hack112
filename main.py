@@ -6,8 +6,9 @@ from imageManager import *
 from powerUpManager import *
 
 from cmu_graphics import *
-import cv2
-import mediapipe as mp
+
+# import cv2
+# import mediapipe as mp
 
 
 def onAppStart(app):
