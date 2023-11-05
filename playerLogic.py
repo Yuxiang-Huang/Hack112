@@ -1,4 +1,3 @@
-from collections import deque
 from cmu_graphics import *
 from usefulFunctions import *
 import random
@@ -47,7 +46,7 @@ class Player:
         # time travel power up
         self.timeTravelling = False
         self.timeTravelInterval = 0
-        self.pastPositions = deque()
+        self.pastPositions = []
         self.count = 0
 
     def display(self, app):
@@ -138,7 +137,7 @@ class Player:
         if self.count % 15 == 0:
             self.pastPositions.append([self.pos[0], self.pos[1]])
             if len(self.pastPositions) > 10:
-                self.pastPositions.popleft()
+                self.pastPositions.pop(-1)
 
         # time travelling
         if self.timeTravelling:
@@ -146,7 +145,7 @@ class Player:
                 if len(self.pastPositions) == 0:
                     self.timeTravelling = False
                 else:
-                    self.pos = self.pastPositions.popleft()
+                    self.pos = self.pastPositions.pop(-1)
 
         # movement
         curSpeed = self.speed
