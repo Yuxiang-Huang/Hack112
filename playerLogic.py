@@ -1,3 +1,4 @@
+from collections import deque
 from cmu_graphics import *
 from usefulFunctions import *
 import random
@@ -43,6 +44,12 @@ class Player:
         self.teleportFromPosition = (0, 0)
         self.teleportToPosition = (0, 0)
 
+        # time travel power up
+        self.timeTravelling = False
+        self.timeTravelInterval = 0
+        self.pastPositions = deque()
+        self.count = 0
+
     def display(self, app):
         if self == app.p1:
             if self.frozen:
@@ -68,6 +75,10 @@ class Player:
         # draw hand on fish if being pushed
         if self.beingPushed:
             self.drawImageHelper("pushAway")
+
+        # draw clock on fish if time travelling
+        if self.timeTravelling:
+            self.drawImageHelper("clock")
 
         # teleport animation
         if self.teleported:
@@ -115,12 +126,27 @@ class Player:
             if self.pushTime < 0:
                 self.beingPushed = False
 
-        # decrease freeze time until unfroezen
+        # decrease freeze time until unfrozen
         if self.frozen:
             self.freezeTime -= 1
             if self.freezeTime < 0:
                 self.frozen = False
             return
+
+        # keep track of positions for time travelling
+        self.count += 1
+        if self.count % 15 == 0:
+            self.pastPositions.append([self.pos[0], self.pos[1]])
+            if len(self.pastPositions) > 10:
+                self.pastPositions.popleft()
+
+        # time travelling
+        if self.timeTravelling:
+            if self.count % self.timeTravelInterval == 0:
+                if len(self.pastPositions) == 0:
+                    self.timeTravelling = False
+                else:
+                    self.pos = self.pastPositions.popleft()
 
         # movement
         curSpeed = self.speed
@@ -243,6 +269,10 @@ class Player:
         self.pos[1] += vector[1] * teleportDist
 
         self.teleportToPosition = (self.pos[0], self.pos[1])
+
+    def timeTravel(self, stepsBefore, timeDuration):
+        self.timeTravelling = True
+        self.timeTravelInterval = stepsBefore / timeDuration
 
     # endregion
 
