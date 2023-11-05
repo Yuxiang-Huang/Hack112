@@ -255,6 +255,11 @@ class Player:
             self.powerUp.use(app, self)
             self.powerUpCoolDown = app.powerUpCoolDown
 
+    def tryUsePowerUpARMode(self, app):
+        if self.powerUpCoolDown <= 0 and self.powerUp != None:
+            self.powerUp.use(app, self)
+            self.powerUpCoolDown = app.powerUpCoolDown
+
     def freeze(self, freezeTime):
         self.frozen = True
         self.freezeTime = freezeTime
