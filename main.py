@@ -47,6 +47,8 @@ def onAppStart(app):
 
 def redrawAll(app):
     drawScreen(app)
+    displayTopBarP1(app)
+    displayTopBarP2(app)
     app.flag1.display()
     app.flag2.display()
     app.p1.display(app)

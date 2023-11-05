@@ -26,7 +26,6 @@ class Player:
         self.freezeTime = 0
 
     def display(self, app):
-        displayTopBarP1(app)
         if self.hasFlag:
             drawRect(
                 self.pos[0],
@@ -178,7 +177,6 @@ def displayTopBarP1(app):
             width=app.topBarHeight / 2,
             height=app.topBarHeight / 2,
         )
-        drawRect(200, app.topBarHeight / 2, 200, 50, align="center", fill=None)
         if app.p1.powerUpCoolDown != app.powerUpCoolDown:
             drawRect(
                 175,
@@ -187,6 +185,52 @@ def displayTopBarP1(app):
                 app.topBarHeight / 2,
                 borderWidth=1,
                 align="left",
+                fill="cyan",
+                border="black",
+            )
+
+
+def displayTopBarP2(app):
+    drawLabel(
+        "P2 Score: " + str(app.p2Score), app.width - 50, app.topBarHeight / 2, size=16
+    )
+    drawRect(
+        app.width - 125,
+        app.topBarHeight / 2,
+        app.topBarHeight / 2,
+        app.topBarHeight / 2,
+        align="center",
+        borderWidth=1,
+        fill=None,
+        border="black",
+    )
+    drawRect(
+        app.width - 175,
+        app.topBarHeight / 2,
+        200,
+        app.topBarHeight / 2,
+        align="right",
+        borderWidth=1,
+        fill=None,
+        border="black",
+    )
+    if app.p2.powerUp != None:
+        drawImage(
+            app.imageDict[app.p2.powerUpName],
+            app.width - 125,
+            app.topBarHeight / 2,
+            align="center",
+            width=app.topBarHeight / 2,
+            height=app.topBarHeight / 2,
+        )
+        if app.p2.powerUpCoolDown != app.powerUpCoolDown:
+            drawRect(
+                app.width - 175,
+                app.topBarHeight / 2,
+                200 * (1 - app.p2.powerUpCoolDown / app.powerUpCoolDown),
+                app.topBarHeight / 2,
+                borderWidth=1,
+                align="right",
                 fill="cyan",
                 border="black",
             )
