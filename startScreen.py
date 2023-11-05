@@ -44,10 +44,10 @@ def onMousePress(app, mouseX, mouseY):
     else:
         # slideshow button
         if (
-            mouseX <= app.width / 2 + 150
-            and mouseX >= app.width / 2 - 150
-            and mouseY <= app.height * 3 / 4 + 50
-            and mouseY >= app.height * 3 / 4 - 50
+            mouseX <= app.width / 2 + 75
+            and mouseX >= app.width / 2 - 75
+            and mouseY <= app.height * 11 / 12 + 35
+            and mouseY >= app.height * 11 / 12 - 35
         ):
             app.screenIndex += 1
             # out of bound to return to home screen
@@ -90,6 +90,19 @@ def startScreen(app):
     )
 
 
+def drawNextButton(app):
+    drawRect(
+        app.width / 2,
+        app.height * 11 / 12,
+        150,
+        70,
+        fill="grey",
+        align="center",
+        border="white",
+    )
+    drawLabel("Next", app.width / 2, app.height * 11 / 12, fill="white", size=50)
+
+
 def instructionsScreen1(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
@@ -121,16 +134,7 @@ def instructionsScreen1(app):
         width=50,
         height=50,
     )
-    drawRect(
-        app.width / 2,
-        app.height * 3 / 4,
-        300,
-        100,
-        fill="grey",
-        align="center",
-        border="white",
-    )
-    drawLabel("Next", app.width / 2, app.height * 3 / 4, fill="white", size=70)
+    drawNextButton(app)
 
 
 def instructionsScreen2(app):
@@ -163,16 +167,7 @@ def instructionsScreen2(app):
         width=50,
         height=50,
     )
-    drawRect(
-        app.width / 2,
-        app.height * 3 / 4,
-        300,
-        100,
-        fill="grey",
-        align="center",
-        border="white",
-    )
-    drawLabel("Next", app.width / 2, app.height * 3 / 4, fill="white", size=70)
+    drawNextButton(app)
 
 
 def instructionsScreen3(app):
@@ -223,16 +218,8 @@ def instructionsScreen3(app):
         width=50,
         height=50,
     )
-    drawRect(
-        app.width / 2,
-        app.height * 3 / 4,
-        300,
-        100,
-        fill="grey",
-        align="center",
-        border="white",
-    )
-    drawLabel("Next", app.width / 2, app.height * 3 / 4, fill="white", size=70)
+
+    drawNextButton(app)
 
     drawImage(
         app.imageDict["seaweed"],
@@ -316,16 +303,7 @@ def instructionsScreen4(app):
         opacity=25,
     )
 
-    drawRect(
-        app.width / 2,
-        app.height * 3 / 4,
-        300,
-        100,
-        fill="grey",
-        align="center",
-        border="white",
-    )
-    drawLabel("Next", app.width / 2, app.height * 3 / 4, fill="white", size=70)
+    drawNextButton(app)
 
     drawImage(
         app.imageDict["blueFish"],
@@ -431,16 +409,7 @@ def instructionsScreen5(app):
         fill="white",
         size=30,
     )
-    drawRect(
-        app.width / 2,
-        app.height * 11 / 12,
-        150,
-        70,
-        fill="grey",
-        align="center",
-        border="white",
-    )
-    drawLabel("Next", app.width / 2, app.height * 11 / 12, fill="white", size=50)
+    drawNextButton(app)
 
 
 def instructionsScreen6(app):
