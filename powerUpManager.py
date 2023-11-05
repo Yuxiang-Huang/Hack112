@@ -1,5 +1,6 @@
 from cmu_graphics import *
 import random
+from usefulFunctions import *
 
 
 def updateSpawnPowerUp(app):
@@ -34,19 +35,34 @@ def collideWithAnyRock(app, pos):
     return False
 
 
-class Freeze:
+class PowerUp:
     def __init__(self, pos):
         self.pos = pos
 
-    def display(self, app):
+    def display(self, app, imageName):
         drawImage(
-            app.imageDict["freeze"],
+            app.imageDict[imageName],
             self.pos[0],
             self.pos[1],
             align="center",
             width=app.powerUpSize,
             height=app.powerUpSize,
         )
+
+    def checkCollision(self, player, app):
+        return collisionBetweenTwoRects(
+            player.pos,
+            player.size,
+            player.size,
+            self.pos,
+            app.powerUpSize,
+            app.powerUpSize,
+        )
+
+
+class Freeze(PowerUp):
+    def display(self, app):
+        PowerUp.display(self, app, "freeze")
 
     def use(self, app, player):
         if player == app.p1:

@@ -1,5 +1,6 @@
 from cmu_graphics import *
 import random
+from usefulFunctions import *
 
 
 class Flag:
@@ -10,10 +11,14 @@ class Flag:
         self.captured = False
 
     def checkCollision(self, player):
-        if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
-            if abs(self.pos[1] - player.pos[1]) < self.height / 2 + player.size / 2:
-                return True
-        return False
+        return collisionBetweenTwoRects(
+            self.pos,
+            self.width,
+            self.height,
+            player.pos,
+            player.size,
+            player.size,
+        )
 
     def display(self):
         if self.captured:
@@ -43,10 +48,14 @@ class Seaweed:
         self.height = 200
 
     def checkCollision(self, player):
-        if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
-            if abs(self.pos[1] - player.pos[1]) < self.height / 2 + player.size / 2:
-                return True
-        return False
+        return collisionBetweenTwoRects(
+            self.pos,
+            self.width,
+            self.height,
+            player.pos,
+            player.size,
+            player.size,
+        )
 
     def display(self):
         drawImage(
@@ -65,9 +74,7 @@ class Rock:
         self.radius = radius
 
     def checkCollision(self, otherPos, otherR):
-        return (
-            (self.pos[0] - otherPos[0]) ** 2 + (self.pos[1] - otherPos[1]) ** 2
-        ) ** 0.5 < self.radius + otherR
+        return collisionBetweenTwoCircles(self.pos, self.radius, otherPos, otherR)
 
     def pushPlayerOut(self, player):
         # find normalized vector

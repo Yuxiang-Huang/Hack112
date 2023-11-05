@@ -1,5 +1,8 @@
 def collisionBetweenTwoRects(pos1, w1, h1, pos2, w2, h2):
-    return abs(pos1[0] - pos2[0]) < w1 + w2 and abs(pos1[1] - pos2[1]) < h1 + h2
+    return (
+        abs(pos1[0] - pos2[0]) < w1 / 2 + w2 / 2
+        and abs(pos1[1] - pos2[1]) < h1 / 2 + h2 / 2
+    )
 
 
 def collisionBetweenTwoCircles(pos1, r1, pos2, r2):

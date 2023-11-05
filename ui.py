@@ -16,7 +16,7 @@ def drawScreen(app):
     # time text for power up
     if len(app.powerUps) == 0:
         drawLabel(
-            f"{app.timeUntilSpawn // 60 + 1} seconds until next power up spawn",
+            f"{app.timeUntilSpawn // app.stepsPerSecond + 1} seconds until next power up spawn",
             app.width / 2,
             app.topBarHeight / 2,
             size=20,

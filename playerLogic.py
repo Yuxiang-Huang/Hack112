@@ -88,17 +88,10 @@ class Player:
             if rock.checkCollision(self.pos, self.size / 2):
                 rock.pushPlayerOut(self)
 
-        # check to get power up
+        # check collision to get power up
         index = len(app.powerUps) - 1
         while index >= 0:
-            if collisionBetweenTwoRects(
-                self.pos,
-                self.size,
-                self.size,
-                app.powerUps[index].pos,
-                app.powerUpSize,
-                app.powerUpSize,
-            ):
+            if app.powerUps[index].checkCollision(self, app):
                 self.powerUp = app.powerUps[index]
                 app.powerUps.pop(index)
             index -= 1
