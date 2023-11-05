@@ -22,8 +22,8 @@ class Flag:
 class Seaweed:
     def __init__(self, pos):
         self.pos = pos
-        self.width = 30
-        self.height = 60
+        self.width = 150
+        self.height = 200
 
     def checkCollision(self, player):
         if abs(self.pos[0] - player.pos[0]) < self.width / 2 + player.size / 2:
@@ -31,7 +31,14 @@ class Seaweed:
                 return True
 
     def display(self):
-        drawRect(self.pos[0], self.pos[1], self.width, self.height, align="center")
+        drawImage(
+            app.imageDict["seaweed"],
+            self.pos[0],
+            self.pos[1],
+            align="center",
+            width=self.width,
+            height=self.height,
+        )
 
 
 class Rock:
@@ -58,6 +65,14 @@ class Rock:
         ]
 
     def display(self):
+        # drawImage(
+        #     app.imageDict["rock"],
+        #     self.pos[0],
+        #     self.pos[1],
+        #     align="center",
+        #     width=self.radius * 2,
+        #     height=self.radius * 2,
+        # )
         drawCircle(self.pos[0], self.pos[1], self.radius)
 
 

@@ -3,9 +3,11 @@ from playerLogic import *
 from ui import *
 from gameManager import *
 from map import *
+from imageManager import *
 
 
 def onAppStart(app):
+    loadImages(app)
     setDimensions(app)
     createObstacles(app)
 
