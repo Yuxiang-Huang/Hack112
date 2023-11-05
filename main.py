@@ -237,7 +237,7 @@ def onStep(app):
             app.p2.moveDirections = [True, True, False, False]
         elif 5 / 7 <= x <= 6 / 7 and 0 <= y <= 1 / 3:
             # print("Up-Player2")
-            app.p2.moveDirections = [False, True, False, False]
+            app.p2.moveDirections = [True, False, False, False]
         elif 6 / 7 <= x <= 1 and 0 <= y <= 1 / 3:
             # print("Up-Right-Player2")
             app.p2.moveDirections = [True, False, False, True]
