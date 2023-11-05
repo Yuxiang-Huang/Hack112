@@ -78,7 +78,13 @@ class Rock:
         return collisionBetweenTwoCircles(self.pos, self.radius, otherPos, otherR)
 
     def pushPlayerOut(self, player):
-        player.pos = pushOut(self.pos, player.pos, self.radius + player.size / 2)
+        nVector = pushOutDir(self.pos, player.pos)
+        totalRadius = self.radius + player.size / 2
+        # change player position to be just outside rock
+        player.pos = [
+            self.pos[0] + totalRadius * nVector[0],
+            self.pos[1] + totalRadius * nVector[1],
+        ]
 
     def display(self):
         # drawImage(

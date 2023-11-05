@@ -23,9 +23,9 @@ def spawnPowerUp(app):
 
     choice = random.randint(0, 6)
     if choice >= 0:
+        app.powerUps.append(PushAway(randomPos))
+    elif choice == 1:
         app.powerUps.append(Freeze(randomPos))
-    # elif choice == 1:
-    #     app.powerUps.append((randomPos))
 
 
 def collideWithAnyRock(app, pos):
@@ -36,9 +36,9 @@ def collideWithAnyRock(app, pos):
 
 
 class PowerUp:
-    def display(self, app, imageName):
+    def display(self, app):
         drawImage(
-            app.imageDict[imageName],
+            app.imageDict[self.name],
             self.pos[0],
             self.pos[1],
             align="center",
@@ -62,11 +62,28 @@ class Freeze(PowerUp):
         self.pos = pos
         self.name = "freeze"
 
-    def display(self, app):
-        PowerUp.display(self, app, "freeze")
+    def use(self, player):
+        player.freeze(app.stepsPerSecond)  # freeze time
+
+
+class PushAway(PowerUp):
+    def __init__(self, pos):
+        self.pos = pos
+        self.name = "pushAway"
+        self.pushAwayConstant = (
+            50  # dist divide by pushAwayConstant = seconds to be pushed with a max of 2
+        )
+        self.pushAwayMaxStrength = 15
+        self.pushAwayMinStrength = 5
 
     def use(self, app, player):
-        if player == app.p1:
-            app.p2.freeze(app)
-        else:
-            app.p1.freeze(app)
+        dist = dist(self.pos[0], self.pos[1], player.pos[0], player.pos[1])
+        pushTime = min(2, self.pushAwayConstant / dist) * app.stepsPerSecond
+        pushDir = pushOutDir(self.pos, player)
+        player.pushAway(
+            pushDir,
+            pushTime,
+            self.pushAwayMaxStrength,
+            (self.pushAwayMaxStrength - self.pushAwayMinStrength) / pushTime,
+            pushTime,
+        )

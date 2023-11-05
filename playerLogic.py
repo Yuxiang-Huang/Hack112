@@ -25,6 +25,13 @@ class Player:
         self.frozen = False
         self.freezeTime = 0
 
+        # push away power up
+        self.beingPushed = False
+        self.pushDir = (0, 0)
+        self.pushStrength = 0
+        self.pushStrengthChange = 0
+        self.pushTime = 0
+
     def display(self, app):
         if self.hasFlag:
             drawRect(
@@ -62,8 +69,18 @@ class Player:
         )
 
     def update(self, app):
+        # decrease power up cool down time
         self.powerUpCoolDown -= 1
         self.powerUpCoolDown = max(self.powerUpCoolDown, 0)
+
+        # decrease push away time and strength
+        if self.pushAway:
+            self.pushTime -= 1
+            self.pos[0] += self.pushDir[0] * self.pushStrength
+            self.pos[1] -= self.pushDir[1] * self.pushStrength
+            self.pushStrength -= self.pushStrengthChange
+            if self.pushTime < 0:
+                self.pushAway = False
 
         # decrease freeze time until unfroezen
         if self.frozen:
@@ -72,6 +89,7 @@ class Player:
                 self.frozen = False
             return
 
+        # decrease speed if in seaweed
         curSpeed = self.speed
         for seaweed in app.seaweeds:
             if seaweed.checkCollision(self):
@@ -135,9 +153,16 @@ class Player:
             self.powerUp.use(app, self)
             self.powerUpCoolDown = app.powerUpCoolDown
 
-    def freeze(self, app):
+    def freeze(self, freezeTime):
         self.frozen = True
-        self.freezeTime = app.stepsPerSecond
+        self.freezeTime = freezeTime
+
+    def pushAway(self, pushDir, pushStrength, pushStrengthChange, pushTime):
+        self.beingPushed = True
+        self.pushDir = pushDir
+        self.pushStrength = pushStrength
+        self.pushStrengthChange = pushStrength / pushTime
+        self.pushTime = pushTime
 
     def respawn(self, otherFlag):
         self.resetPowerUp()
