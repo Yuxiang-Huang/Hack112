@@ -5,7 +5,7 @@ import random
 class Flag:
     def __init__(self, app, pos):
         self.height = 100
-        self.width = 50
+        self.width = 100
         self.pos = pos
         self.captured = False
 
@@ -17,22 +17,22 @@ class Flag:
 
     def display(self):
         if self.captured:
-            drawRect(
+            drawImage(
+                app.imageDict["oyster"],
                 self.pos[0],
                 self.pos[1],
-                self.width,
-                self.height,
-                fill="purple",
                 align="center",
+                width=self.width,
+                height=self.height,
             )
         else:
-            drawRect(
+            drawImage(
+                app.imageDict["oyster-pearl"],
                 self.pos[0],
                 self.pos[1],
-                self.width,
-                self.height,
-                fill="red",
                 align="center",
+                width=self.width,
+                height=self.height,
             )
 
 
@@ -101,7 +101,7 @@ def createObstacles(app):
 
 def createRocks(app):
     app.rocks = []
-    for _ in range(random.randrange(5) + 5):
+    for _ in range(random.randint(5, 7)):
         xVal = random.randrange(app.width - app.margin * 8) + app.margin * 4
         yVal = (
             random.randrange(app.fieldCanvas["height"] - app.margin * 2)
@@ -114,7 +114,7 @@ def createRocks(app):
 
 def createSeaweed(app):
     app.seaweeds = []
-    for _ in range(random.randrange(5) + 5):
+    for _ in range(random.randint(2, 5)):
         xVal = random.randrange(app.width - app.margin * 8) + app.margin * 4
         yVal = (
             random.randrange(app.fieldCanvas["height"] - app.margin * 2)

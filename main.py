@@ -10,10 +10,10 @@ import mediapipe as mp
 
 
 def onAppStart(app):
-    app.cap = cv2.VideoCapture(0)
+    # app.cap = cv2.VideoCapture(0)
 
-    mp_hands = mp.solutions.hands
-    app.hands = mp_hands.Hands()
+    # mp_hands = mp.solutions.hands
+    # app.hands = mp_hands.Hands()
 
     loadImages(app)
     setDimensions(app)
@@ -61,6 +61,8 @@ def onKeyRelease(app, key):
 def onStep(app):
     if not app.paused:
         takeStep(app)
+
+    return
 
     ret, frame = app.cap.read()
     frame = cv2.flip(frame, 1)
