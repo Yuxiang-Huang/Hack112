@@ -49,6 +49,9 @@ class Player:
         self.pastPositions = []
         self.count = 0
 
+        # mine power up
+        self.mines = []
+
     def display(self, app):
         if self == app.p1:
             if self.frozen:
@@ -101,6 +104,16 @@ class Player:
                 height=self.size,
             )
 
+        for mine in self.mines:
+            drawImage(
+                app.imageDict["mine"],
+                mine[0],
+                mine[1],
+                align="center",
+                width=self.size,
+                height=self.size,
+            )
+
     def drawImageHelper(self, nameOfImage):
         drawImage(
             app.imageDict[nameOfImage],
@@ -146,6 +159,24 @@ class Player:
                     self.timeTravelling = False
                 else:
                     self.pos = self.pastPositions.pop(-1)
+
+        # check if mine can kill opponent
+        if self == app.p1:
+            other = app.p2
+            myFlag = app.flag1
+        else:
+            other = app.p1
+            myFlag = app.flag2
+
+        index = len(self.mines) - 1
+        while index >= 0:
+            mine = self.mines[index]
+            if collisionBetweenTwoRects(
+                mine, self.size, self.size, other.pos, other.size, other.size
+            ):
+                self.mines.pop(index)
+                other.respawn(myFlag)
+            index -= 1
 
         # movement
         curSpeed = self.speed
@@ -272,6 +303,11 @@ class Player:
     def timeTravel(self, stepsBefore, timeDuration):
         self.timeTravelling = True
         self.timeTravelInterval = stepsBefore / timeDuration
+
+    def putMine(self):
+        if len(self.mines) > 0:
+            self.mines = []
+        self.mines.append((self.pos[0], self.pos[1]))
 
     # endregion
 
