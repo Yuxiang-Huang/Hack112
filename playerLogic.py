@@ -3,7 +3,7 @@ from usefulFunctions import *
 
 
 class Player:
-    def __init__(self, moveKeys, color, spawnPosition):
+    def __init__(self, moveKeys, powerUpKey, color, spawnPosition):
         self.pos = [spawnPosition[0], spawnPosition[1]]
         self.color = color
         self.hasFlag = False
@@ -11,8 +11,13 @@ class Player:
         self.size = 100
         self.speed = 10
         self.moveKeys = moveKeys
+        self.powerUpKey = powerUpKey
         self.moveDirections = [False, False, False, False]
         self.powerUp = None
+
+        # freeze power up
+        self.frozen = False
+        self.freezeTime = 0
 
     def display(self, app):
         if self.hasFlag:
@@ -34,25 +39,34 @@ class Player:
             #     align="center",
             # )
             if self == app.p1:
-                drawImage(
-                    app.imageDict["blueFish"],
-                    self.pos[0],
-                    self.pos[1],
-                    align="center",
-                    width=self.size,
-                    height=self.size,
-                )
+                if self.frozen:
+                    self.drawImageHelper("freeze")
+                else:
+                    self.drawImageHelper("blueFish")
             else:
-                drawImage(
-                    app.imageDict["redFish"],
-                    self.pos[0],
-                    self.pos[1],
-                    align="center",
-                    width=self.size,
-                    height=self.size,
-                )
+                if self.frozen:
+                    self.drawImageHelper("freeze")
+                else:
+                    self.drawImageHelper("redFish")
+
+    def drawImageHelper(self, nameOfImage):
+        drawImage(
+            app.imageDict[nameOfImage],
+            self.pos[0],
+            self.pos[1],
+            align="center",
+            width=self.size,
+            height=self.size,
+        )
 
     def update(self, app):
+        # decrease freeze time until unfroezen
+        if self.frozen:
+            self.freezeTime -= 1
+            if self.freezeTime < 0:
+                self.frozen = False
+            return
+
         curSpeed = self.speed
         for seaweed in app.seaweeds:
             if seaweed.checkCollision(self):
@@ -96,15 +110,24 @@ class Player:
                 app.powerUps.pop(index)
             index -= 1
 
-    def updateDirection(self, key, boolean):
-        if self.moveKeys[0] in key:
+    def updateDirection(self, keys, boolean):
+        if self.moveKeys[0] in keys:
             self.moveDirections[0] = boolean
-        if self.moveKeys[1] in key:
+        if self.moveKeys[1] in keys:
             self.moveDirections[1] = boolean
-        if self.moveKeys[2] in key:
+        if self.moveKeys[2] in keys:
             self.moveDirections[2] = boolean
-        if self.moveKeys[3] in key:
+        if self.moveKeys[3] in keys:
             self.moveDirections[3] = boolean
+
+    def tryUsePowerUp(self, app, keys):
+        if self.powerUpKey in keys:
+            self.powerUp.use(app, self)
+            self.powerUp = None
+
+    def freeze(self, app):
+        self.frozen = True
+        self.freezeTime = app.stepsPerSecond
 
     def respawn(self, otherFlag):
         self.pos = [self.spawnPosition[0], self.spawnPosition[1]]

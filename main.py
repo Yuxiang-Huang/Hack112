@@ -23,9 +23,10 @@ def onAppStart(app):
 
     # create player and flag objects
     middleYVal = app.fieldCanvas["topLeftY"] + app.fieldCanvas["height"] / 2
-    app.p1 = Player(["w", "a", "s", "d"], "blue", (app.margin * 2 / 3, middleYVal))
+    app.p1 = Player(["w", "a", "s", "d"], "e", "blue", (app.margin * 2 / 3, middleYVal))
     app.p2 = Player(
         ["up", "left", "down", "right"],
+        "/",
         "red",
         (app.width - app.margin * 2 / 3, middleYVal),
     )
@@ -60,6 +61,8 @@ def redrawAll(app):
 def onKeyHold(app, key):
     app.p1.updateDirection(key, True)
     app.p2.updateDirection(key, True)
+    app.p1.tryUsePowerUp(app, key)
+    app.p2.tryUsePowerUp(app, key)
 
 
 def onKeyRelease(app, key):
