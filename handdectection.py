@@ -52,19 +52,19 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
         line10 = ((x_seventh * 4, y_thirds * 2), (width, y_thirds * 2))
         
         #vertical lines
-        cv2.line(frame, line1[0], line1[1], (0, 255, 0), 2)
-        cv2.line(frame, line2[0], line2[1], (0, 255, 0), 2)
-        cv2.line(frame, line3[0], line3[1], (0, 255, 0), 2)
+        cv2.line(frame, line1[0], line1[1], (0, 255, 0), 4)
+        cv2.line(frame, line2[0], line2[1], (0, 255, 0), 4)
+        cv2.line(frame, line3[0], line3[1], (0, 255, 0), 4)
 
-        cv2.line(frame, line4[0], line4[1], (0, 255, 0), 2)
-        cv2.line(frame, line5[0], line5[1], (0, 255, 0), 2)
-        cv2.line(frame, line6[0], line6[1], (0, 255, 0), 2)
+        cv2.line(frame, line4[0], line4[1], (0, 255, 0), 4)
+        cv2.line(frame, line5[0], line5[1], (0, 255, 0), 4)
+        cv2.line(frame, line6[0], line6[1], (0, 255, 0), 4)
 
         #horizontal lines
-        cv2.line(frame, line7[0], line7[1], (0, 255, 0), 2)
-        cv2.line(frame, line8[0], line8[1], (0, 255, 0), 2)
-        cv2.line(frame, line9[0], line9[1], (0, 255, 0), 2)
-        cv2.line(frame, line10[0], line10[1], (0, 255, 0), 2)
+        cv2.line(frame, line7[0], line7[1], (0, 255, 0), 4)
+        cv2.line(frame, line8[0], line8[1], (0, 255, 0), 4)
+        cv2.line(frame, line9[0], line9[1], (0, 255, 0), 4)
+        cv2.line(frame, line10[0], line10[1], (0, 255, 0), 4)
 
         #overlaying skeleton and checking for fingers up
         if results.multi_hand_landmarks:
