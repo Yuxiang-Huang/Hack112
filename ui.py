@@ -2,7 +2,11 @@ from cmu_graphics import *
 from imageManager import *
 
 
+
 def setDimensions(app):
+    
+    
+    
     app.margin = 50
     app.topBarHeight = 75
 
