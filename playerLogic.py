@@ -37,6 +37,12 @@ class Player:
         self.speedy = False
         self.speedUptime = 0
 
+        # teleport power up
+        self.teleported = False
+        self.teleportedAnimationTime = 0
+        self.teleportFromPosition = (0, 0)
+        self.teleportToPosition = (0, 0)
+
     def display(self, app):
         if self == app.p1:
             if self.frozen:
@@ -62,6 +68,28 @@ class Player:
         # draw hand on fish if being pushed
         if self.beingPushed:
             self.drawImageHelper("pushAway")
+
+        # teleport animation
+        if self.teleported:
+            self.teleportedAnimationTime -= 1
+            if self.teleportedAnimationTime <= 0:
+                self.teleported = False
+            drawImage(
+                app.imageDict["teleport"],
+                self.teleportFromPosition[0],
+                self.teleportFromPosition[1],
+                align="center",
+                width=self.size,
+                height=self.size,
+            )
+            drawImage(
+                app.imageDict["teleport"],
+                self.teleportToPosition[0],
+                self.teleportToPosition[1],
+                align="center",
+                width=self.size,
+                height=self.size,
+            )
 
     def drawImageHelper(self, nameOfImage):
         drawImage(
@@ -185,7 +213,7 @@ class Player:
         self.speedy = True
         self.speedUptime = speedUptime
 
-    def teleport(self, teleportDist):
+    def teleport(self, teleportDist, teleportedAnimationTime):
         vector = [0, 0]
         # up
         if self.moveDirections[0]:
@@ -204,9 +232,17 @@ class Player:
             vector = [random.randint(-1, 1), random.randint(-1, 1)]
         # normalize
         vector = normalize(vector)
+
+        # for animation
+        self.teleported = True
+        self.teleportedAnimationTime = teleportedAnimationTime
+        self.teleportFromPosition = (self.pos[0], self.pos[1])
+
         # teleport
         self.pos[0] += vector[0] * teleportDist
         self.pos[1] += vector[1] * teleportDist
+
+        self.teleportToPosition = (self.pos[0], self.pos[1])
 
     # endregion
 

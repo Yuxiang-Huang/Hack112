@@ -112,6 +112,7 @@ class Teleport(PowerUp):
         self.pos = pos
         self.name = "teleport"
         self.teleportDist = 300
+        self.teleportedAnimationTime = 30
 
     def use(self, app, player):
-        player.teleport(self.teleportDist)
+        player.teleport(self.teleportDist, self.teleportedAnimationTime)
