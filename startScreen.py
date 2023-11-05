@@ -14,6 +14,7 @@ def setIntroScreenVaribles(app):
         instructionsScreen3,
         instructionsScreen4,
         instructionsScreen5,
+        instructionsScreen6,
     ]
 
 
@@ -56,24 +57,23 @@ def onMousePress(app, mouseX, mouseY):
 
 
 def startScreen(app):
-    drawRect(0, 0, app.width, app.height, fill="lightgreen")
-    drawRect(0, 0, 100, 100)
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel(
         "Capture the Flag!!!",
         app.width / 2,
         app.height / 8,
         size=70,
         bold=True,
-        fill="red",
+        fill="white",
     )
     drawRect(
         app.width / 3,
         (app.height * 3 / 4),
         300,
         100,
-        fill="orange",
+        fill="lightgreen",
         align="center",
-        border="red",
+        border="white",
     )
     drawLabel("START!", app.width / 3, (app.height * 3 / 4), fill="red", size=70)
     drawRect(
@@ -91,15 +91,36 @@ def startScreen(app):
 
 
 def instructionsScreen1(app):
-    drawRect(0, 0, app.width, app.height, fill="black")
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
-    drawRect(75, app.height / 2, 50, 50, fill="red", align="center")
+    drawImage(
+        app.imageDict["redFish"],
+        75,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
+
     drawLabel(
         "Capture their flag!!!", app.width / 2, app.height / 4, fill="white", size=50
     )
-    drawLine(100, app.height / 2, 1100, app.height / 2, arrowEnd=True, fill="white")
-    drawRect(1105, app.height / 2, 10, 50, fill="grey", align="center")
-    drawRect(1110, app.height / 2 - 25, 40, 20, fill="red", align="bottom-right")
+    drawLine(
+        100,
+        app.height / 2,
+        app.width - 100,
+        app.height / 2,
+        arrowEnd=True,
+        fill="white",
+    )
+    drawImage(
+        app.imageDict["oyster-pearl"],
+        app.width - 75,
+        app.height / 2,
+        align="center",
+        width=50,
+        height=50,
+    )
     drawRect(
         app.width / 2,
         app.height * 3 / 4,
@@ -113,7 +134,7 @@ def instructionsScreen1(app):
 
 
 def instructionsScreen2(app):
-    drawRect(0, 0, app.width, app.height, fill="black")
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
     drawRect(1100, app.height / 2, 50, 50, fill="purple", align="left")
     drawLabel(
@@ -136,7 +157,7 @@ def instructionsScreen2(app):
 
 
 def instructionsScreen3(app):
-    drawRect(0, 0, app.width, app.height, fill="black")
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("How to play", app.width / 2, app.height / 8, fill="white", size=80)
     drawRect(1150, app.height / 2, 40, 50, fill="red", align="right", opacity=40)
     drawLabel(
@@ -213,7 +234,7 @@ def instructionsScreen3(app):
 
 
 def instructionsScreen4(app):
-    drawRect(0, 0, app.width, app.height, fill="black")
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLine(
         app.width / 2, app.height / 4 + 80, app.width / 2, app.height, fill="white"
     )
@@ -298,15 +319,179 @@ def instructionsScreen4(app):
 
 
 def instructionsScreen5(app):
-    drawRect(0, 0, app.width, app.height, fill="black")
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     drawLabel("Powerups", app.width / 2, app.height / 8, fill="white", size=80)
     drawLabel(
-        "If you touch the enemy while",
+        "open your hand or press either",
         app.width / 2,
         app.height / 4 - 20,
         fill="white",
-        size=40,
+        size=30,
     )
+    drawLabel(
+        "E or / depending on whether",
+        app.width / 2,
+        app.height / 4 + 10,
+        fill="white",
+        size=30,
+    )
+    drawLabel(
+        "you are using WASD or the arrow",
+        app.width / 2,
+        app.height / 4 + 40,
+        fill="white",
+        size=30,
+    )
+    drawLabel(
+        "keys to move your character",
+        app.width / 2,
+        app.height / 4 + 70,
+        fill="white",
+        size=30,
+    )
+    drawImage(
+        app.imageDict["teleport"],
+        app.width / 2 - 250,
+        app.height / 2 - 5,
+        align="center",
+        width=75,
+        height=75,
+    )
+    drawLabel(
+        "Teleport in a random direction",
+        app.width / 2 + 20,
+        app.height / 2 - 5,
+        fill="white",
+        size=30,
+    )
+    drawImage(
+        app.imageDict["pushAway"],
+        app.width / 2 - 250,
+        app.height / 2 + 100,
+        align="center",
+        width=75,
+        height=75,
+    )
+    drawLabel(
+        "Push enemys within a radius away",
+        app.width / 2 + 20,
+        app.height / 2 + 105,
+        fill="white",
+        size=30,
+    )
+    drawImage(
+        app.imageDict["freeze"],
+        app.width / 2 - 250,
+        app.height / 2 + 205,
+        align="center",
+        width=75,
+        height=75,
+    )
+    drawLabel(
+        "Freeze the enemy",
+        app.width / 2 + 20,
+        app.height / 2 - 5 + 210,
+        fill="white",
+        size=30,
+    )
+    drawRect(
+        app.width / 2,
+        app.height * 11 / 12,
+        150,
+        70,
+        fill="grey",
+        align="center",
+        border="white",
+    )
+    drawLabel("Next", app.width / 2, app.height * 11 / 12, fill="white", size=50)
+
+
+def instructionsScreen6(app):
+    drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
+    drawLabel("Powerups", app.width / 2, app.height / 8, fill="white", size=80)
+    drawLabel(
+        "open your hand or press either",
+        app.width / 2,
+        app.height / 4 - 20,
+        fill="white",
+        size=30,
+    )
+    drawLabel(
+        "E or / depending on whether",
+        app.width / 2,
+        app.height / 4 + 10,
+        fill="white",
+        size=30,
+    )
+    drawLabel(
+        "you are using WASD or the arrow",
+        app.width / 2,
+        app.height / 4 + 40,
+        fill="white",
+        size=30,
+    )
+    drawLabel(
+        "keys to move your character",
+        app.width / 2,
+        app.height / 4 + 70,
+        fill="white",
+        size=30,
+    )
+    drawImage(
+        app.imageDict["mine"],
+        app.width / 2 - 250,
+        app.height / 2 - 5,
+        align="center",
+        width=75,
+        height=75,
+    )
+    drawLabel(
+        "Drop a mine to trap enemys",
+        app.width / 2 + 20,
+        app.height / 2 - 5,
+        fill="white",
+        size=30,
+    )
+    drawImage(
+        app.imageDict["bootWithWings"],
+        app.width / 2 - 250,
+        app.height / 2 + 100,
+        align="center",
+        width=75,
+        height=75,
+    )
+    drawLabel(
+        "Speed your up",
+        app.width / 2 + 20,
+        app.height / 2 + 105,
+        fill="white",
+        size=30,
+    )
+    drawImage(
+        app.imageDict["clock"],
+        app.width / 2 - 250,
+        app.height / 2 + 205,
+        align="center",
+        width=75,
+        height=75,
+    )
+    drawLabel(
+        "Sets you back in time",
+        app.width / 2 + 20,
+        app.height / 2 - 5 + 210,
+        fill="white",
+        size=30,
+    )
+    drawRect(
+        app.width / 2,
+        app.height * 11 / 12,
+        150,
+        70,
+        fill="grey",
+        align="center",
+        border="white",
+    )
+    drawLabel("Next", app.width / 2, app.height * 11 / 12, fill="white", size=50)
 
 
 def drawIntroScreens(app):
