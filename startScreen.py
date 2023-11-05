@@ -65,7 +65,7 @@ def startScreen(app):
     drawRect(0, 0, app.width, app.height, fill=rgb(109, 149, 197))
     # the title
     drawLabel(
-        "Capture the Flag!!!",
+        "Capture the Pearl!!!",
         app.width / 2,
         app.height / 8,
         size=70,
