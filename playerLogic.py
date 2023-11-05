@@ -32,32 +32,33 @@ class Player:
         self.pushStrengthChange = 0
         self.pushTime = 0
 
+        # speed power up
+        self.speedy = False
+        self.speedUptime = 0
+
     def display(self, app):
-        if self.hasFlag:
-            drawRect(
-                self.pos[0],
-                self.pos[1],
-                self.size,
-                self.size,
-                fill="purple",
-                align="center",
-            )
-            # if self == app.p1:
-            #     self.drawImageHelper("freeze")
-            # else:
-            #     self.drawImageHelper("freeze")
-        else:
-            if self == app.p1:
-                if self.frozen:
-                    self.drawImageHelper("freeze")
+        if self == app.p1:
+            if self.frozen:
+                self.drawImageHelper("frozenBlueFish")
+            elif self.speedy:
+                self.drawImageHelper("blueFishWind")
+            else:
+                if self.hasFlag:
+                    self.drawImageHelper("blueFishPearl")
                 else:
                     self.drawImageHelper("blueFish")
+        else:
+            if self.frozen:
+                self.drawImageHelper("frozenRedFish")
+            elif self.speedy:
+                self.drawImageHelper("redFishWind")
             else:
-                if self.frozen:
-                    self.drawImageHelper("freeze")
+                if self.hasFlag:
+                    self.drawImageHelper("redFishPearl")
                 else:
                     self.drawImageHelper("redFish")
 
+        # draw hand on fish if being pushed
         if self.beingPushed:
             self.drawImageHelper("pushAway")
 
@@ -92,11 +93,21 @@ class Player:
                 self.frozen = False
             return
 
-        # decrease speed if in seaweed
+        # movement
         curSpeed = self.speed
-        for seaweed in app.seaweeds:
-            if seaweed.checkCollision(self):
-                curSpeed /= 2
+
+        # decrease speedup time
+        if self.speedy:
+            self.speedUptime -= 1
+            curSpeed *= 2
+            if self.speedUptime < 0:
+                self.speedy = False
+
+        # decrease speed if in seaweed (ignore if speedy)
+        if not self.speedy:
+            for seaweed in app.seaweeds:
+                if seaweed.checkCollision(self):
+                    curSpeed /= 2
 
         # up
         if self.moveDirections[0]:
@@ -166,6 +177,10 @@ class Player:
         self.pushStrength = pushStrength
         self.pushStrengthChange = pushStrengthChange
         self.pushTime = pushTime
+
+    def speedUp(self, speedUptime):
+        self.speedy = True
+        self.speedUptime = speedUptime
 
     def respawn(self, otherFlag):
         self.resetPowerUp()
