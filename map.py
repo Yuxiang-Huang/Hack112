@@ -87,15 +87,15 @@ class Rock:
         ]
 
     def display(self):
-        # drawImage(
-        #     app.imageDict["rock"],
-        #     self.pos[0],
-        #     self.pos[1],
-        #     align="center",
-        #     width=self.radius * 2,
-        #     height=self.radius * 2,
-        # )
-        drawCircle(self.pos[0], self.pos[1], self.radius)
+        drawImage(
+            app.imageDict["rock"],
+            self.pos[0],
+            self.pos[1],
+            align="center",
+            width=self.radius * 2,
+            height=self.radius * 2,
+        )
+        # drawCircle(self.pos[0], self.pos[1], self.radius)
 
 
 def createObstacles(app):
