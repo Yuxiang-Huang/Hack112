@@ -64,7 +64,7 @@ def onStep(app):
     frame = cv2.flip(frame, 1)
 
     # change dimension
-    # frame = cv2.resize(frame, (400, 200))
+    frame = cv2.resize(frame, (400, 200))
 
     # BGR to RGB since mediapipe only works with rgb
     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -165,9 +165,16 @@ def onStep(app):
                 x = landmark.x
                 y = landmark.y
 
+                # store value to show on canvas
+                if x <= 3 / 7:
+                    app.p1.ARVals[0] = x
+                    app.p1.ARVals[1] = y
+
+                if x >= 4 / 7:
+                    app.p2.ARVals[0] = x
+                    app.p2.ARVals[1] = y
+
                 # player moveDirections = [False, False, False, False] refer to W A S D
-                app.p1.moveDirections = [False, False, False, False]
-                app.p2.moveDirections = [False, False, False, False]
                 if 0 <= x <= 1 / 7 and 0 <= y <= 1 / 3:
                     # print("Up-Left-Player1")
                     app.p1.moveDirections = [True, True, False, False]
@@ -243,7 +250,7 @@ def takeStep(app):
 
 
 def main():
-    runApp(1200, 700)
+    runApp(1400, 700)
 
 
 main()

@@ -13,6 +13,9 @@ class Player:
         self.speed = 10
         self.score = 0
 
+        # AR
+        self.ARVals = [0, 0]
+
         # keys and movement
         self.moveKeys = moveKeys
         self.powerUpKey = powerUpKey
@@ -338,9 +341,11 @@ class Player:
 
 
 def displayTopBarP1(app):
-    drawLabel("P1 Score: " + str(app.p1.score), 50, app.topBarHeight / 2, size=16)
+    drawMovementTractingTable(app, 25)
+    drawMovementTractorP1(app, app.p1, 25)
+    drawLabel("P1 Score: " + str(app.p1.score), 150, app.topBarHeight / 2, size=16)
     drawRect(
-        125,
+        225,
         app.topBarHeight / 2,
         app.topBarHeight / 2,
         app.topBarHeight / 2,
@@ -350,7 +355,7 @@ def displayTopBarP1(app):
         border="black",
     )
     drawRect(
-        175,
+        275,
         app.topBarHeight / 2,
         200,
         app.topBarHeight / 2,
@@ -362,7 +367,7 @@ def displayTopBarP1(app):
     if app.p1.powerUp != None:
         drawImage(
             app.imageDict[app.p1.powerUpName],
-            125,
+            225,
             app.topBarHeight / 2,
             align="center",
             width=app.topBarHeight / 2,
@@ -370,7 +375,7 @@ def displayTopBarP1(app):
         )
         if app.p1.powerUpCoolDown != app.powerUpCoolDown:
             drawRect(
-                175,
+                275,
                 app.topBarHeight / 2,
                 200 * (1 - app.p1.powerUpCoolDown / app.powerUpCoolDown),
                 app.topBarHeight / 2,
@@ -382,11 +387,13 @@ def displayTopBarP1(app):
 
 
 def displayTopBarP2(app):
+    drawMovementTractingTable(app, app.width - 25 - app.topBarHeight * 4 / 5)
+    drawMovementTractorP2(app, app.p2, app.width - 25 - app.topBarHeight * 4 / 5)
     drawLabel(
-        "P2 Score: " + str(app.p2.score), app.width - 50, app.topBarHeight / 2, size=16
+        "P2 Score: " + str(app.p2.score), app.width - 150, app.topBarHeight / 2, size=16
     )
     drawRect(
-        app.width - 125,
+        app.width - 225,
         app.topBarHeight / 2,
         app.topBarHeight / 2,
         app.topBarHeight / 2,
@@ -396,7 +403,7 @@ def displayTopBarP2(app):
         border="black",
     )
     drawRect(
-        app.width - 175,
+        app.width - 275,
         app.topBarHeight / 2,
         200,
         app.topBarHeight / 2,
@@ -408,7 +415,7 @@ def displayTopBarP2(app):
     if app.p2.powerUp != None:
         drawImage(
             app.imageDict[app.p2.powerUpName],
-            app.width - 125,
+            app.width - 225,
             app.topBarHeight / 2,
             align="center",
             width=app.topBarHeight / 2,
@@ -416,7 +423,7 @@ def displayTopBarP2(app):
         )
         if app.p2.powerUpCoolDown != app.powerUpCoolDown:
             drawRect(
-                app.width - 175,
+                app.width - 275,
                 app.topBarHeight / 2,
                 200 * (1 - app.p2.powerUpCoolDown / app.powerUpCoolDown),
                 app.topBarHeight / 2,
@@ -425,3 +432,56 @@ def displayTopBarP2(app):
                 fill="cyan",
                 border="black",
             )
+
+
+def drawMovementTractingTable(app, startX):
+    size = app.topBarHeight * 4 / 5
+    drawRect(
+        startX,
+        app.topBarHeight / 2,
+        size,
+        size,
+        align="left",
+        border="black",
+        fill=None,
+    )
+    drawLine(
+        startX,
+        app.topBarHeight / 2 + size / 6,
+        startX + size,
+        app.topBarHeight / 2 + size / 6,
+    )
+    drawLine(
+        startX,
+        app.topBarHeight / 2 - size / 6,
+        startX + size,
+        app.topBarHeight / 2 - size / 6,
+    )
+    drawLine(
+        startX + size * 2 / 3,
+        app.topBarHeight / 2 - size / 2,
+        startX + size * 2 / 3,
+        app.topBarHeight / 2 + size / 2,
+    )
+    drawLine(
+        startX + size / 3,
+        app.topBarHeight / 2 - size / 2,
+        startX + size / 3,
+        app.topBarHeight / 2 + size / 2,
+    )
+
+
+def drawMovementTractorP1(app, player, startX):
+    size = app.topBarHeight * 4 / 5
+    if not (player.ARVals[0] == 0 and player.ARVals[1] == 0):
+        xVal = (player.ARVals[0] - 4 / 7) / (3 / 7) * size + startX
+        yVall = player.ARVals[1] * size + app.topBarHeight / 2 - size / 2
+        drawCircle(xVal, yVall, 10, fill=player.color)
+
+
+def drawMovementTractorP2(app, player, startX):
+    size = app.topBarHeight * 4 / 5
+    if not (player.ARVals[0] == 0 and player.ARVals[1] == 0):
+        xVal = (player.ARVals[0] - 4 / 7) / (3 / 7) * size + startX
+        yVall = player.ARVals[1] * size + app.topBarHeight / 2 - size / 2
+        drawCircle(xVal, yVall, 10, fill=player.color)
